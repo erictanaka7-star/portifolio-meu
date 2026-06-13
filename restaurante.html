@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Brasa & Co. — Churrascaria Urbana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --carvao:#0E0C0B;
+  --carvao2:#1A1714;
+  --carvao3:#252119;
+  --brasa:#C84B1F;
+  --brasa2:#E55A28;
+  --ouro:#C9A84C;
+  --ouro2:#E8C96A;
+  --creme:#F0EAE0;
+  --cinza:#888580;
+  --borda:rgba(201,168,76,0.18);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--carvao);color:var(--creme);overflow-x:hidden}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.6rem 4rem;
+  transition:background .35s,padding .3s,border-color .3s;
+  border-bottom:1px solid transparent;
+}
+nav.compact{
+  background:rgba(14,12,11,0.96);
+  padding:1rem 4rem;
+  border-bottom-color:var(--borda);
+  backdrop-filter:blur(12px);
+}
+.logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.8rem;letter-spacing:.1em;
+  color:var(--creme);text-decoration:none;
+  display:flex;align-items:center;gap:.5rem;
+}
+.logo-dot{color:var(--brasa);font-size:2.4rem;line-height:0;margin-top:.1rem}
+.nav-links{display:flex;gap:2.4rem;list-style:none;align-items:center}
+.nav-links a{
+  color:rgba(240,234,224,.65);text-decoration:none;
+  font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:500;
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--ouro)}
+.nav-reserva{
+  background:var(--brasa);color:var(--creme)!important;
+  padding:.55rem 1.4rem;border-radius:2px;
+  letter-spacing:.1em!important;
+}
+.nav-reserva:hover{background:var(--brasa2)!important;color:var(--creme)!important}
+
+/* ── HERO ── */
+#hero{
+  position:relative;height:100vh;min-height:640px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(to bottom,rgba(14,12,11,.3) 0%,rgba(14,12,11,.55) 55%,rgba(14,12,11,.95) 100%),
+    url('https://images.unsplash.com/photo-1558030006-450675393462?w=1800&q=80') center/cover no-repeat;
+}
+.hero-content{position:relative;z-index:2;padding:0 2rem;max-width:900px}
+.hero-eyebrow{
+  font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--ouro);font-weight:500;margin-bottom:1.6rem;
+}
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(4rem,10vw,8.5rem);
+  letter-spacing:.04em;line-height:.92;
+  color:var(--creme);margin-bottom:.6rem;
+}
+.hero-title .accent{color:var(--brasa)}
+.hero-sub-italic{
+  font-family:'Playfair Display',serif;
+  font-style:italic;font-size:clamp(1.1rem,2.5vw,1.6rem);
+  color:var(--ouro2);margin-bottom:2.4rem;display:block;
+}
+.hero-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-fogo{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--brasa);color:var(--creme);
+  padding:1rem 2.2rem;text-decoration:none;
+  font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
+  border-radius:2px;transition:background .2s,transform .2s;
+}
+.btn-fogo:hover{background:var(--brasa2);transform:translateY(-2px)}
+.btn-ghost{
+  display:inline-block;
+  border:1px solid rgba(201,168,76,.5);color:var(--ouro2);
+  padding:1rem 2.2rem;text-decoration:none;
+  font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:400;
+  border-radius:2px;transition:border-color .2s,background .2s;
+}
+.btn-ghost:hover{border-color:var(--ouro);background:rgba(201,168,76,.08)}
+
+/* BRASA LINE — assinatura */
+.brasa-line{
+  position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent 0%,var(--brasa) 30%,var(--ouro) 50%,var(--brasa) 70%,transparent 100%);
+  filter:blur(1px);
+  animation:brasaPulse 3s ease-in-out infinite;
+}
+@keyframes brasaPulse{
+  0%,100%{opacity:.7;transform:scaleX(1)}
+  50%{opacity:1;transform:scaleX(1.02)}
+}
+.ember{
+  position:absolute;bottom:3px;width:6px;height:6px;
+  background:var(--ouro2);border-radius:50%;
+  animation:emberFloat 4s ease-in-out infinite;
+  filter:blur(.5px);
+}
+.ember:nth-child(1){left:20%;animation-delay:0s}
+.ember:nth-child(2){left:45%;animation-delay:1.2s}
+.ember:nth-child(3){left:70%;animation-delay:2.4s}
+@keyframes emberFloat{
+  0%{opacity:0;transform:translateY(0)}
+  20%{opacity:1}
+  100%{opacity:0;transform:translateY(-80px) translateX(20px)}
+}
+
+/* HERO SCROLL */
+.hero-scroll{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  z-index:2;display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  color:rgba(240,234,224,.4);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;
+}
+.scroll-bar{width:1px;height:36px;background:rgba(201,168,76,.35);animation:scrollAnim 2s ease-in-out infinite}
+@keyframes scrollAnim{0%,100%{transform:scaleY(1);opacity:.35}50%{transform:scaleY(.4);opacity:.9}}
+
+/* ── STRIP ── */
+.strip{
+  background:var(--carvao3);
+  border-top:1px solid var(--borda);border-bottom:1px solid var(--borda);
+  display:flex;align-items:center;justify-content:center;
+  gap:3.5rem;padding:1.4rem 3rem;flex-wrap:wrap;
+}
+.strip-item{
+  display:flex;align-items:center;gap:.7rem;
+  color:var(--cinza);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;
+}
+.strip-icon{font-size:1.1rem}
+.strip-item strong{color:var(--ouro);font-weight:500}
+
+/* ── SECTION BASE ── */
+section{padding:7rem 4rem}
+.sec-label{
+  font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--brasa);font-weight:600;margin-bottom:1rem;
+  display:flex;align-items:center;gap:.8rem;
+}
+.sec-label::after{content:'';flex:1;max-width:40px;height:1px;background:var(--brasa);opacity:.5}
+.sec-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.8rem,5vw,5rem);letter-spacing:.03em;
+  color:var(--creme);line-height:.95;margin-bottom:1.6rem;
+}
+.sec-title .it{
+  font-family:'Playfair Display',serif;
+  font-style:italic;color:var(--ouro2);
+  font-size:clamp(1.8rem,3.5vw,3.2rem);letter-spacing:0;
+}
+.sec-body{font-size:1rem;line-height:1.8;color:var(--cinza);font-weight:300;max-width:500px}
+
+/* ── SOBRE ── */
+#sobre{
+  display:grid;grid-template-columns:1fr 1fr;gap:6rem;
+  align-items:center;max-width:1200px;margin:0 auto;
+}
+.sobre-images{position:relative;height:560px}
+.sobre-img-main{
+  position:absolute;top:0;right:0;
+  width:80%;height:78%;object-fit:cover;border-radius:2px;
+}
+.sobre-img-sec{
+  position:absolute;bottom:0;left:0;
+  width:58%;height:52%;object-fit:cover;border-radius:2px;
+  border:4px solid var(--carvao);
+}
+.sobre-badge{
+  position:absolute;top:44%;left:22%;transform:translate(-50%,-50%);
+  background:var(--brasa);
+  width:110px;height:110px;border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--creme);
+  line-height:1;z-index:2;border:3px solid var(--carvao);
+}
+.sobre-badge small{
+  font-family:'Inter',sans-serif;font-size:.58rem;letter-spacing:.1em;
+  text-transform:uppercase;font-weight:500;margin-top:.15rem;
+  color:rgba(240,234,224,.75);
+}
+.sobre-stats{display:flex;gap:2.5rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--borda)}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:var(--ouro);line-height:1}
+.stat-label{font-size:.7rem;color:var(--cinza);letter-spacing:.08em;text-transform:uppercase;margin-top:.2rem}
+
+/* ── CARDÁPIO ── */
+#cardapio{background:var(--carvao2);padding:7rem 4rem}
+.cardapio-header{text-align:center;max-width:600px;margin:0 auto 5rem;padding-left:0}
+.cardapio-header .sec-label{justify-content:center}
+.cardapio-header .sec-label::after{display:none}
+.cardapio-header .sec-body{margin:0 auto}
+
+.tabs{display:flex;justify-content:center;gap:.5rem;margin-bottom:3.5rem;flex-wrap:wrap}
+.tab{
+  padding:.6rem 1.6rem;border:1px solid var(--borda);background:transparent;
+  color:var(--cinza);font-family:'Inter',sans-serif;font-size:.78rem;
+  letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:2px;
+  transition:all .2s;font-weight:500;
+}
+.tab:hover{border-color:var(--ouro);color:var(--ouro2)}
+.tab.active{background:var(--brasa);border-color:var(--brasa);color:var(--creme)}
+
+.menu-panel{display:none;max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(2,1fr);gap:1px;
+  background:var(--borda);border:1px solid var(--borda);border-radius:2px;overflow:hidden;
+}
+.menu-panel.visible{display:grid}
+.menu-item{
+  background:var(--carvao3);padding:2rem 2.4rem;
+  transition:background .2s;position:relative;overflow:hidden;
+}
+.menu-item:hover{background:#201d19}
+.menu-item.destaque{background:#1c1510}
+.menu-item.destaque::before{
+  content:'CHEF';position:absolute;top:1rem;right:1rem;
+  font-size:.6rem;letter-spacing:.15em;font-weight:600;
+  background:var(--ouro);color:var(--carvao);padding:.25rem .6rem;border-radius:1px;
+}
+.item-nome{
+  font-family:'Bebas Neue',sans-serif;font-size:1.5rem;
+  letter-spacing:.04em;color:var(--creme);margin-bottom:.4rem;
+}
+.item-desc{font-size:.84rem;line-height:1.7;color:var(--cinza);font-weight:300;margin-bottom:1.2rem}
+.item-footer{display:flex;justify-content:space-between;align-items:center}
+.item-preco{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:var(--ouro);letter-spacing:.04em}
+.item-preco small{font-family:'Inter',sans-serif;font-size:.7rem;color:var(--cinza);font-weight:300;letter-spacing:0}
+.item-tag{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--brasa);font-weight:500}
+
+/* ── EXPERIÊNCIA ── */
+#experiencia{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;max-width:100%;
+  align-items:stretch;
+}
+.exp-visual{position:relative;overflow:hidden;min-height:600px}
+.exp-visual img{width:100%;height:100%;object-fit:cover;display:block}
+.exp-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to right,rgba(14,12,11,.3) 0%,rgba(14,12,11,.7) 100%);
+}
+.exp-content{
+  background:var(--carvao2);padding:7rem 5rem;
+  display:flex;flex-direction:column;justify-content:center;
+  border-left:1px solid var(--borda);
+}
+.exp-items{display:flex;flex-direction:column;gap:2.5rem;margin-top:3rem}
+.exp-item{display:flex;gap:1.5rem;align-items:flex-start}
+.exp-num{
+  font-family:'Bebas Neue',sans-serif;font-size:2.8rem;
+  color:rgba(201,168,76,.2);line-height:.9;flex-shrink:0;
+  min-width:2.5rem;text-align:right;
+}
+.exp-titulo{
+  font-family:'Bebas Neue',sans-serif;font-size:1.3rem;
+  letter-spacing:.04em;color:var(--creme);margin-bottom:.35rem;
+}
+.exp-desc{font-size:.85rem;line-height:1.75;color:var(--cinza);font-weight:300}
+
+/* ── GALERIA ── */
+#galeria{background:var(--carvao);padding:7rem 4rem}
+.galeria-header{text-align:center;margin-bottom:3.5rem}
+.gal-grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  grid-template-rows:240px 240px;
+  gap:.6rem;max-width:1200px;margin:0 auto;
+}
+.gal-grid img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  border-radius:1px;cursor:zoom-in;
+  transition:transform .4s,filter .4s;
+  filter:saturate(.8) brightness(.85);
+}
+.gal-grid img:hover{transform:scale(1.03);filter:saturate(1.1) brightness(1)}
+.g1{grid-column:1/5;grid-row:1/3}
+.g2{grid-column:5/9}
+.g3{grid-column:9/13}
+.g4{grid-column:5/8;grid-row:2}
+.g5{grid-column:8/11;grid-row:2}
+.g6{grid-column:11/13;grid-row:2}
+
+/* ── DEPOIMENTOS ── */
+#depoimentos{background:var(--carvao2);padding:7rem 4rem}
+.dep-header{text-align:center;margin-bottom:4rem}
+.dep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1100px;margin:0 auto}
+.dep-card{
+  padding:2.4rem;border:1px solid var(--borda);border-radius:2px;
+  background:var(--carvao3);position:relative;
+  transition:border-color .3s;
+}
+.dep-card:hover{border-color:rgba(201,168,76,.4)}
+.dep-stars{color:var(--ouro);font-size:.85rem;margin-bottom:1.2rem;letter-spacing:.1em}
+.dep-text{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:1.05rem;color:rgba(240,234,224,.85);line-height:1.8;margin-bottom:1.6rem;
+}
+.dep-autor{font-size:.8rem;font-weight:500;color:var(--creme);letter-spacing:.05em}
+.dep-local{font-size:.72rem;color:var(--cinza);margin-top:.2rem}
+.dep-q{
+  position:absolute;top:1.2rem;right:1.8rem;
+  font-family:'Bebas Neue',sans-serif;font-size:5rem;
+  color:rgba(201,168,76,.12);line-height:1;
+}
+
+/* ── RESERVA ── */
+#reserva{
+  background:var(--carvao3);
+  border-top:1px solid var(--borda);border-bottom:1px solid var(--borda);
+  padding:7rem 4rem;text-align:center;
+}
+#reserva .sec-label{justify-content:center}
+#reserva .sec-label::after{display:none}
+#reserva .sec-title{margin-bottom:.6rem}
+#reserva .sec-body{margin:0 auto 3.5rem;text-align:center}
+.reserva-form{
+  display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;
+  max-width:920px;margin:0 auto;
+}
+.fg{display:flex;flex-direction:column;gap:.4rem;flex:1;min-width:150px}
+.fg label{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ouro);font-weight:500}
+.fg input,.fg select{
+  background:rgba(240,234,224,.06);
+  border:1px solid rgba(201,168,76,.25);
+  color:var(--creme);padding:.85rem 1rem;
+  font-family:'Inter',sans-serif;font-size:.88rem;border-radius:2px;outline:none;
+  transition:border-color .2s;
+}
+.fg input:focus,.fg select:focus{border-color:var(--ouro)}
+.fg input::placeholder{color:rgba(240,234,224,.3)}
+.fg select option{background:var(--carvao2);color:var(--creme)}
+.btn-reserva{
+  align-self:flex-end;background:var(--brasa);color:var(--creme);
+  padding:.87rem 2rem;border:none;
+  font-family:'Inter',sans-serif;font-size:.82rem;letter-spacing:.12em;
+  text-transform:uppercase;font-weight:600;border-radius:2px;cursor:pointer;
+  transition:background .2s;white-space:nowrap;
+}
+.btn-reserva:hover{background:var(--brasa2)}
+.reserva-contact{margin-top:2rem;color:var(--cinza);font-size:.82rem}
+.reserva-contact a{color:var(--ouro);text-decoration:none}
+
+/* ── LOCALIZAÇÃO ── */
+#localizacao{display:grid;grid-template-columns:1fr 1fr}
+.loc-mapa{position:relative;min-height:480px;overflow:hidden}
+.loc-mapa iframe{position:absolute;inset:0;width:100%;height:100%;border:none;filter:grayscale(1) invert(1) brightness(.8) contrast(.9)}
+.loc-info{background:var(--carvao2);padding:5rem 4rem;display:flex;flex-direction:column;justify-content:center;border-left:1px solid var(--borda)}
+.loc-info .sec-label::after{display:none}
+.loc-list{margin-top:2.5rem;display:flex;flex-direction:column;gap:1.8rem}
+.loc-row{display:flex;gap:1rem;align-items:flex-start}
+.loc-icon{font-size:1.2rem;flex-shrink:0;margin-top:.05rem}
+.loc-t{font-weight:500;color:var(--ouro2);font-size:.85rem;margin-bottom:.2rem}
+.loc-d{color:var(--cinza);font-size:.84rem;line-height:1.65;font-weight:300}
+
+/* ── FOOTER ── */
+footer{background:#090807;padding:5rem 4rem 2.5rem;border-top:1px solid var(--borda)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:4rem;margin-bottom:4rem}
+.footer-brand .logo{font-size:1.5rem}
+.footer-brand p{margin-top:1.2rem;font-size:.85rem;line-height:1.75;color:var(--cinza);font-weight:300;max-width:280px}
+.footer-social{display:flex;gap:.7rem;margin-top:1.6rem}
+.soc{
+  width:36px;height:36px;border:1px solid var(--borda);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--cinza)!important;text-decoration:none;font-size:.8rem;
+  transition:border-color .2s,color .2s;
+}
+.soc:hover{border-color:var(--ouro);color:var(--ouro)!important}
+.fcol h4{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ouro);font-weight:500;margin-bottom:1.3rem}
+.fcol ul{list-style:none;display:flex;flex-direction:column;gap:.65rem}
+.fcol a{color:var(--cinza);text-decoration:none;font-size:.85rem;font-weight:300;transition:color .2s}
+.fcol a:hover{color:var(--ouro2)}
+.footer-bottom{
+  border-top:1px solid var(--borda);padding-top:1.8rem;
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:.75rem;color:rgba(136,133,128,.5);
+}
+
+/* ── LIGHTBOX ── */
+.lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:999;align-items:center;justify-content:center}
+.lb.open{display:flex}
+.lb img{max-width:90vw;max-height:85vh;object-fit:contain;border-radius:2px}
+.lb-close{position:absolute;top:1.5rem;right:2rem;color:var(--creme);font-size:2rem;cursor:pointer;opacity:.6;transition:opacity .2s;line-height:1}
+.lb-close:hover{opacity:1}
+
+/* ── REVEAL ── */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.rv.on{opacity:1;transform:none}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  nav{padding:1rem 1.5rem}nav.compact{padding:.8rem 1.5rem}
+  .nav-links{display:none}
+  section{padding:4rem 1.5rem}
+  #sobre{grid-template-columns:1fr;gap:2.5rem}
+  .sobre-images{height:360px}
+  .menu-panel{grid-template-columns:1fr}
+  #experiencia{grid-template-columns:1fr}
+  .exp-visual{min-height:300px}
+  .dep-grid{grid-template-columns:1fr}
+  .gal-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:auto}
+  .gal-grid img,.g1,.g2,.g3,.g4,.g5,.g6{grid-column:auto;grid-row:auto;height:200px}
+  .reserva-form{flex-direction:column}
+  #localizacao{grid-template-columns:1fr}
+  .loc-mapa{min-height:300px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  #experiencia .exp-content{padding:4rem 2rem}
+}
+@media(max-width:600px){
+  .hero-title{font-size:3.5rem}
+  .strip{gap:1.2rem;padding:1rem}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:.7rem;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="logo">BRASA<span class="logo-dot">·</span>CO</a>
+  <ul class="nav-links">
+    <li><a href="#sobre">A Casa</a></li>
+    <li><a href="#cardapio">Cardápio</a></li>
+    <li><a href="#experiencia">Experiência</a></li>
+    <li><a href="#galeria">Galeria</a></li>
+    <li><a href="#localizacao">Localização</a></li>
+    <li><a href="#reserva" class="nav-reserva">Reservar Mesa</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Churrascaria Urbana · Desde 2012</p>
+    <h1 class="hero-title">FOGO,<br><span class="accent">CARNE</span><br>&amp; ALMA</h1>
+    <span class="hero-sub-italic">o churrasco levado a sério</span>
+    <div class="hero-ctas">
+      <a href="#reserva" class="btn-fogo">🔥 Reservar Mesa</a>
+      <a href="#cardapio" class="btn-ghost">Ver Cardápio</a>
+    </div>
+  </div>
+  <div class="brasa-line">
+    <div class="ember"></div>
+    <div class="ember"></div>
+    <div class="ember"></div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-bar"></div>
+    <span>Descer</span>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-item"><span class="strip-icon">🔥</span><span>Brasa de <strong>eucalipto</strong></span></div>
+  <div class="strip-item"><span class="strip-icon">🥩</span><span>Cortes <strong>premium</strong></span></div>
+  <div class="strip-item"><span class="strip-icon">🍷</span><span>Cave com <strong>+200 rótulos</strong></span></div>
+  <div class="strip-item"><span class="strip-icon">🌆</span><span>Centro <strong>São Paulo</strong></span></div>
+  <div class="strip-item"><span class="strip-icon">📍</span><span>Ter–Dom <strong>12h–23h</strong></span></div>
+</div>
+
+<!-- SOBRE -->
+<section>
+  <div id="sobre">
+    <div class="sobre-images rv">
+      <img class="sobre-img-main" src="https://images.unsplash.com/photo-1544025162-d76694265947?w=700&q=80" alt="Corte na brasa"/>
+      <img class="sobre-img-sec" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80" alt="Salão Brasa & Co."/>
+      <div class="sobre-badge">12<small>anos</small></div>
+    </div>
+    <div class="rv">
+      <p class="sec-label">A Casa</p>
+      <h2 class="sec-title">Respeito pelo<br><span class="it">fogo e pelo tempo</span></h2>
+      <p class="sec-body">Na Brasa & Co., churrasco não é fast food — é ritual. Cada corte passa por no mínimo 8 horas de dry-age, a brasa é de eucalipto certificado e o ponto da carne é decidido pelo açougueiro, não pelo cliente.</p>
+      <p class="sec-body" style="margin-top:1rem">Abrimos em 2012 num galpão convertido no centro de São Paulo e nunca saímos daqui. O concreto, o aço e a madeira queimada contam a história de cada serviço.</p>
+      <div class="sobre-stats">
+        <div><div class="stat-num">24</div><div class="stat-label">Cortes no cardápio</div></div>
+        <div><div class="stat-num">4.8</div><div class="stat-label">Avaliação</div></div>
+        <div><div class="stat-num">+200</div><div class="stat-label">Rótulos de vinho</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARDÁPIO -->
+<section id="cardapio">
+  <div class="cardapio-header rv">
+    <p class="sec-label">Cardápio</p>
+    <h2 class="sec-title">Cortes que<br><span class="it">falam por si</span></h2>
+    <p class="sec-body">Cada peça é selecionada pessoalmente pelo nosso açougueiro nas fazendas parceiras do Mato Grosso do Sul e do Pampa gaúcho.</p>
+  </div>
+  <div class="tabs rv">
+    <button class="tab active" onclick="showTab('carnes',this)">Carnes</button>
+    <button class="tab" onclick="showTab('porcoes',this)">Porções</button>
+    <button class="tab" onclick="showTab('bebidas',this)">Bebidas</button>
+  </div>
+
+  <!-- CARNES -->
+  <div class="menu-panel visible rv" id="tab-carnes">
+    <div class="menu-item destaque">
+      <div class="item-nome">Tomahawk 1.2kg</div>
+      <div class="item-desc">Costela de ancho com osso longo. Dry-age 21 dias, brasa lenta por 45 min. Para 2 pessoas.</div>
+      <div class="item-footer">
+        <div class="item-preco">R$ 298 <small>/ peça</small></div>
+        <div class="item-tag">Especial da Casa</div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="item-nome">Picanha Prime</div>
+      <div class="item-desc">Corte inteiro, sem agulha. Maturada 14 dias, servida com farofa de alho negro e vinagrete de roça.</div>
+      <div class="item-footer">
+        <div class="item-preco">R$ 168 <small>/ 500g</small></div>
+        <div class="item-tag">Mais Pedido</div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="item-nome">Ancho ao Ponto</div>
+      <div class="item-desc">Contrafilé de capa grossa, manteiga de ervas frescas na finalização. O clássico que nunca sai do cardápio.</div>
+      <div class="item-footer">
+        <div class="item-preco">R$ 128 <small>/ 400g</small></div>
+        <div class="item-tag">Clássico</div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="item-nome">Costela de Ripa</div>
+      <div class="item-desc">12 horas de defumação lenta em fogo baixo. Carne que se separa do osso com o toque do garfo.</div>
+      <div class="item-footer">
+        <div class="item-preco">R$ 198 <small>/ kg</small></div>
+        <div class="item-tag">Fim de Semana</div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="item-nome">Cordeiro à Brasa</div>
+      <div class="item-desc">Pernil inteiro, marinado 24h em alho, alecrim e vinho tinto. Ponto rosado garantido.</div>
+      <div class="item-footer">
+        <div class="item-preco">R$ 218 <small>/ kg</small></div>
+        <div class="item-tag">Reserva Prévia</div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="item-nome">Fraldinha Suína</div>
+      <div class="item-desc">Corte alternativo e suculento. Marinada em shoyu, mel e gengibre. Servida fatiada com arroz de carreteiro.</div>
+      <div class="item-footer">
+        <div class="item-preco">R$ 96 <small>/ 350g</small></div>
+        <div class="item-tag">Surpresa do Dia</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PORÇÕES -->
+  <div class="menu-panel rv" id="tab-porcoes">
+    <div class="menu-item destaque">
+      <div class="item-nome">Linguiça Artesanal (6 un)</div>
+      <div class="item-desc">Feita na casa, mistura de suíno com ervas frescas, pimenta calabresa e vinho branco. Defumada no eucalipto.</div>
+      <div class="item-footer">
+        <div class="item-preco">R$ 58</div>
+        <div class="item-tag">Entrada Obrigatória</div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="item-nome">Coração de Galinha</div>
+      <div class="item-desc">Temperado na véspera, espetinho no carvão vivo. Crocante por fora, macio por dentro.</div>
+      <div class="item-footer">
+        <div class="item-preco">R$ 42 <small>/ 12 un</small></div>
+        <div class="item-tag">Petisco</div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="item-nome">Mandioca Frita com Carne Seca</div>
+      <div class="item-desc">Mandioca da roça, frita duplo, com carne seca desfiada e coalhada seca. Para 2 a 3 pessoas.</div>
+      <div class="item-footer">
+        <div class="item-preco">R$ 68</div>
+        <div class="item-tag">Porção</div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="item-nome">Queijo Coalho Grelhado</div>
+      <div class="item-desc">Queijo artesanal de Minas, grelhado no espeto com melaço de cana e pimenta-do-reino.</div>
+      <div class="item-footer">
+        <div class="item-preco">R$ 46</div>
+        <div class="item-tag">Vegetariano</div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="item-nome">Farofa da Casa</div>
+      <div class="item-desc">Farinha de mandioca torrada no bacon, alho, cebolinha e ovos. Acompanha qualquer corte.</div>
+      <div class="item-footer">
+        <div class="item-preco">R$ 28</div>
+        <div class="item-tag">Acompanhamento</div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="item-nome">Arroz de Carreteiro</div>
+      <div class="item-desc">Arroz com charque, pimenta e cheiro-verde. Receita do Sul que não sai do cardápio há 12 anos.</div>
+      <div class="item-footer">
+        <div class="item-preco">R$ 36</div>
+        <div class="item-tag">Acompanhamento</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEBIDAS -->
+  <div class="menu-panel rv" id="tab-bebidas">
+    <div class="menu-item destaque">
+      <div class="item-nome">Malbec Achaval Ferrer</div>
+      <div class="item-desc">Mendoza, Argentina. Safra 2021. Taninos maduros, frutas negras e tabaco. Eleição do sommelier para o Tomahawk.</div>
+      <div class="item-footer">
+        <div class="item-preco">R$ 320 <small>/ garrafa</small></div>
+        <div class="item-tag">Sommelier</div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="item-nome">Caipirinha de Brasa</div>
+      <div class="item-desc">Cachaça envelhecida em carvalho, limão siciliano, abacaxi grelhado na brasa e mel de abelha nativa.</div>
+      <div class="item-footer">
+        <div class="item-preco">R$ 38</div>
+        <div class="item-tag">Signature</div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="item-nome">Chopp Artesanal Dark</div>
+      <div class="item-desc">Produzido exclusivamente para a Brasa & Co. pela Cervejaria Comanche. Notas de café e caramelo.</div>
+      <div class="item-footer">
+        <div class="item-preco">R$ 22 <small>/ 500ml</small></div>
+        <div class="item-tag">Exclusivo</div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="item-nome">Negroni da Casa</div>
+      <div class="item-desc">Gin envelhecido, Campari, vermute tinto e um twist de laranja defumada. Servido com pedra de gelo esculpida.</div>
+      <div class="item-footer">
+        <div class="item-preco">R$ 45</div>
+        <div class="item-tag">Coquetel</div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="item-nome">Água Mineral + Gás</div>
+      <div class="item-desc">São Lourenço 500ml.</div>
+      <div class="item-footer">
+        <div class="item-preco">R$ 12</div>
+        <div class="item-tag">Não-Alcoólico</div>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="item-nome">Suco da Fruta do Dia</div>
+      <div class="item-desc">Preparado na hora, sem adição de açúcar. Pergunte ao garçom a fruta de hoje.</div>
+      <div class="item-footer">
+        <div class="item-preco">R$ 18</div>
+        <div class="item-tag">Natural</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIÊNCIA -->
+<div id="experiencia">
+  <div class="exp-visual">
+    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=900&q=80" alt="Ambiente Brasa & Co."/>
+    <div class="exp-overlay"></div>
+  </div>
+  <div class="exp-content rv">
+    <p class="sec-label">Experiência</p>
+    <h2 class="sec-title">Mais que<br><span class="it">uma refeição</span></h2>
+    <div class="exp-items">
+      <div class="exp-item">
+        <div class="exp-num">01</div>
+        <div>
+          <div class="exp-titulo">Açougue Aberto</div>
+          <p class="exp-desc">Escolha o corte diretamente na vitrine refrigerada antes de sentar. O açougueiro explica o ponto ideal de cada peça.</p>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-num">02</div>
+        <div>
+          <div class="exp-titulo">Mesa do Pitmaster</div>
+          <p class="exp-desc">Às sextas e sábados, uma mesa de 8 lugares ao lado da brasa com menu degustação exclusivo de 7 cortes.</p>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-num">03</div>
+        <div>
+          <div class="exp-titulo">Cave Privada</div>
+          <p class="exp-desc">Harmonização guiada por nosso sommelier. Mais de 200 rótulos com curadoria focada em vinhos de altitude sul-americanos.</p>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-num">04</div>
+        <div>
+          <div class="exp-titulo">Eventos Privados</div>
+          <p class="exp-desc">Salão privativo para até 60 pessoas. Cardápio exclusivo, equipe dedicada e personalização total do ambiente.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GALERIA -->
+<section id="galeria">
+  <div class="galeria-header rv">
+    <p class="sec-label" style="justify-content:center">Galeria</p>
+    <h2 class="sec-title" style="text-align:center">A casa em <span class="it">imagens</span></h2>
+  </div>
+  <div class="gal-grid rv">
+    <img class="g1" src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=600&q=80" alt="Brasa" onclick="lb(this.src)"/>
+    <img class="g2" src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600&q=80" alt="Corte" onclick="lb(this.src)"/>
+    <img class="g3" src="https://images.unsplash.com/photo-1559847844-5315695dadae?w=600&q=80" alt="Salão" onclick="lb(this.src)"/>
+    <img class="g4" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" alt="Prato" onclick="lb(this.src)"/>
+    <img class="g5" src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=600&q=80" alt="Carne" onclick="lb(this.src)"/>
+    <img class="g6" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Ambiente" onclick="lb(this.src)"/>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section id="depoimentos">
+  <div class="dep-header rv">
+    <p class="sec-label" style="justify-content:center">Depoimentos</p>
+    <h2 class="sec-title" style="text-align:center">O que dizem<br><span class="it">quem come aqui</span></h2>
+  </div>
+  <div class="dep-grid">
+    <div class="dep-card rv">
+      <div class="dep-q">"</div>
+      <div class="dep-stars">★★★★★</div>
+      <p class="dep-text">O Tomahawk da Brasa & Co. é o melhor que comi na vida. Seriedade com a carne, ponto impecável, atendimento que não incomoda. Voltei 4 vezes em 3 meses.</p>
+      <div class="dep-autor">Felipe Drummond</div>
+      <div class="dep-local">São Paulo · Novembro 2024</div>
+    </div>
+    <div class="dep-card rv">
+      <div class="dep-q">"</div>
+      <div class="dep-stars">★★★★★</div>
+      <p class="dep-text">Fomos para aniversário de 10 anos de casados. A Mesa do Pitmaster foi uma experiência que não consigo comparar com nada. Parece que o tempo parou.</p>
+      <div class="dep-autor">Mariana & Carlos S.</div>
+      <div class="dep-local">São Paulo · Dezembro 2024</div>
+    </div>
+    <div class="dep-card rv">
+      <div class="dep-q">"</div>
+      <div class="dep-stars">★★★★★</div>
+      <p class="dep-text">A costela de ripa é transcendental. Chega de garfo, literalmente. O ambiente urbano-industrial combina muito com o estilo do churrasco: sem frescura, só qualidade.</p>
+      <div class="dep-autor">André Takahashi</div>
+      <div class="dep-local">Campinas · Outubro 2024</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVA -->
+<section id="reserva">
+  <p class="sec-label">Reservas</p>
+  <h2 class="sec-title">Garanta sua<br><span class="it">mesa</span></h2>
+  <p class="sec-body">Ocupação alta nas sextas e sábados. Recomendamos reservar com pelo menos 48h de antecedência.</p>
+  <div class="reserva-form rv">
+    <div class="fg">
+      <label>Data</label>
+      <input type="date" id="r-data"/>
+    </div>
+    <div class="fg">
+      <label>Horário</label>
+      <select id="r-hora">
+        <option>12h00</option><option>13h00</option><option>19h00</option>
+        <option>20h00</option><option>21h00</option><option>22h00</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Pessoas</label>
+      <select id="r-pessoas">
+        <option>1 pessoa</option><option>2 pessoas</option><option>3 pessoas</option>
+        <option>4 pessoas</option><option>5 pessoas</option><option>6+ pessoas</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Ocasião</label>
+      <select id="r-ocasiao">
+        <option>Jantar casual</option><option>Aniversário</option>
+        <option>Confraternização</option><option>Evento privado</option>
+        <option>Mesa do Pitmaster</option>
+      </select>
+    </div>
+    <button class="btn-reserva" onclick="reservarWhats()">Reservar →</button>
+  </div>
+  <p class="reserva-contact">Ou ligue: <a href="tel:+551199990000">(11) 9999-0000</a> · <a href="mailto:reservas@brasaco.com.br">reservas@brasaco.com.br</a></p>
+</section>
+
+<!-- LOCALIZAÇÃO -->
+<div id="localizacao">
+  <div class="loc-mapa">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29184!2d-46.6333!3d-23.5505!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sSao+Paulo!5e0!3m2!1spt-BR!2sbr!4v1700000000000" allowfullscreen loading="lazy" title="Localização Brasa & Co."></iframe>
+  </div>
+  <div class="loc-info">
+    <p class="sec-label">Como chegar</p>
+    <h2 class="sec-title" style="font-size:2.4rem">No coração<br><span class="it">de SP</span></h2>
+    <div class="loc-list">
+      <div class="loc-row">
+        <span class="loc-icon">📍</span>
+        <div>
+          <div class="loc-t">Endereço</div>
+          <p class="loc-d">Rua Augusta, 845 — Consolação<br>São Paulo, SP · CEP 01305-100</p>
+        </div>
+      </div>
+      <div class="loc-row">
+        <span class="loc-icon">🚇</span>
+        <div>
+          <div class="loc-t">Metrô</div>
+          <p class="loc-d">Consolação (Linha 2 – Verde), 5 minutos a pé. Trianon-MASP, 8 minutos a pé.</p>
+        </div>
+      </div>
+      <div class="loc-row">
+        <span class="loc-icon">🚗</span>
+        <div>
+          <div class="loc-t">Estacionamento</div>
+          <p class="loc-d">Convênio com estacionamento parceiro na Rua Pamplona. Apresente o comprovante na saída para desconto.</p>
+        </div>
+      </div>
+      <div class="loc-row">
+        <span class="loc-icon">🕐</span>
+        <div>
+          <div class="loc-t">Horário</div>
+          <p class="loc-d">Terça a sexta: 12h–15h e 19h–23h<br>Sábado e domingo: 12h–23h (contínuo)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="logo">BRASA<span class="logo-dot">·</span>CO</a>
+      <p>Churrascaria urbana no coração de São Paulo. Fogo de eucalipto, cortes premium e respeito pela carne desde 2012.</p>
+      <div class="footer-social">
+        <a class="soc" href="#" title="Instagram">ig</a>
+        <a class="soc" href="#" title="Facebook">fb</a>
+        <a class="soc" href="#" title="TikTok">tk</a>
+        <a class="soc" href="https://wa.me/5511999990000" title="WhatsApp">wp</a>
+      </div>
+    </div>
+    <div class="fcol">
+      <h4>A Casa</h4>
+      <ul>
+        <li><a href="#sobre">Nossa história</a></li>
+        <li><a href="#experiencia">Experiências</a></li>
+        <li><a href="#galeria">Galeria</a></li>
+        <li><a href="#depoimentos">Avaliações</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>Cardápio</h4>
+      <ul>
+        <li><a href="#cardapio">Carnes</a></li>
+        <li><a href="#cardapio">Porções</a></li>
+        <li><a href="#cardapio">Bebidas</a></li>
+        <li><a href="#experiencia">Mesa do Pitmaster</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>Contato</h4>
+      <ul>
+        <li><a href="tel:+551199990000">(11) 9999-0000</a></li>
+        <li><a href="mailto:reservas@brasaco.com.br">reservas@brasaco.com.br</a></li>
+        <li><a href="#localizacao">Como chegar</a></li>
+        <li><a href="#reserva">Reservar mesa</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Brasa & Co. Todos os direitos reservados.</span>
+    <span>São Paulo, SP 🔥</span>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lightbox" onclick="closeLb()">
+  <span class="lb-close" onclick="closeLb()">×</span>
+  <img id="lbImg" src="" alt=""/>
+</div>
+
+<script>
+// Nav
+const nav=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>nav.classList.toggle('compact',scrollY>60));
+
+// Reveal
+const rvEls=document.querySelectorAll('.rv');
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){setTimeout(()=>e.target.classList.add('on'),i*70);obs.unobserve(e.target)}
+  });
+},{threshold:.1});
+rvEls.forEach(el=>obs.observe(el));
+
+// Tabs
+function showTab(id,btn){
+  document.querySelectorAll('.menu-panel').forEach(p=>{p.classList.remove('visible');p.style.display='none'});
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  const panel=document.getElementById('tab-'+id);
+  panel.style.display='grid';panel.classList.add('visible');
+  btn.classList.add('active');
+}
+document.querySelectorAll('.menu-panel').forEach(p=>p.style.display='none');
+document.getElementById('tab-carnes').style.display='grid';
+
+// Lightbox
+function lb(src){document.getElementById('lbImg').src=src;document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden'}
+function closeLb(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb()});
+
+// Reserva WhatsApp
+function reservarWhats(){
+  const data=document.getElementById('r-data').value;
+  const hora=document.getElementById('r-hora').value;
+  const pessoas=document.getElementById('r-pessoas').value;
+  const ocasiao=document.getElementById('r-ocasiao').value;
+  if(!data){alert('Por favor, selecione a data da reserva.');return}
+  const msg=`Olá! Gostaria de reservar uma mesa na Brasa & Co.:\n\n`
+    +`📅 Data: ${data}\n`
+    +`🕐 Horário: ${hora}\n`
+    +`👥 Pessoas: ${pessoas}\n`
+    +`🎉 Ocasião: ${ocasiao}\n\n`
+    +`Aguardo confirmação. Obrigado!`;
+  const num='5546920017301'; // ← coloque o número real aqui
+  window.open('https://wa.me/'+num+'?text='+encodeURIComponent(msg),'_blank');
+}
+</script>
+</body>
+</html>
