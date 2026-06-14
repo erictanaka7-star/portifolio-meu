@@ -1,0 +1,1941 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Élite Imóveis — Luxo & Exclusividade</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:   #0A0A0A;
+    --graphite:#1E1E1E;
+    --dark:    #2C2C2C;
+    --gold:    #C9A84C;
+    --gold-lt: #E2C97E;
+    --cream:   #F5F0E8;
+    --white:   #FFFFFF;
+    --muted:   #7A7A7A;
+    --border:  rgba(201,168,76,0.25);
+
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans:  'Inter', system-ui, sans-serif;
+
+    --ease: cubic-bezier(.22,.68,0,1.2);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden; /* FIX: previne espaço vazio horizontal */
+  }
+
+  body {
+    font-family: var(--sans);
+    background: var(--black);
+    color: var(--cream);
+    line-height: 1.6;
+    overflow-x: hidden;
+    max-width: 100vw; /* FIX: limita largura ao viewport */
+  }
+
+  img { display: block; width: 100%; object-fit: cover; }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+  /* NAVIGATION */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 4rem;
+    transition: background 0.4s, backdrop-filter 0.4s, padding 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    padding: 0.85rem 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+  }
+  .nav-logo-mark {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+  .nav-logo-text {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: var(--white);
+    letter-spacing: 0.08em;
+  }
+  .nav-logo-text span { color: var(--gold); }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.7);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    padding: 0.6rem 1.6rem;
+    border: 1px solid var(--gold);
+    color: var(--gold) !important;
+    font-size: 0.72rem !important;
+    letter-spacing: 0.14em !important;
+    transition: background 0.2s, color 0.2s !important;
+  }
+  .nav-cta:hover {
+    background: var(--gold) !important;
+    color: var(--black) !important;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    width: 100%; /* FIX */
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden; /* FIX: contém todos os filhos absolutos */
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1208 40%, #0d0d0d 100%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    overflow: hidden; /* FIX: garante que as linhas não vazem */
+    pointer-events: none;
+  }
+  .hero-grid::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 55%;
+    height: 100%;
+    background: linear-gradient(to bottom left, rgba(201,168,76,0.08) 0%, transparent 60%);
+    border-left: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .grid-lines {
+    position: absolute;
+    inset: 0;
+    overflow: hidden; /* FIX */
+  }
+  .grid-lines span {
+    position: absolute;
+    background: var(--gold);
+    opacity: 0;
+    animation: lineReveal 1.2s var(--ease) forwards;
+  }
+  .grid-lines span:nth-child(1) {
+    width: 1px; height: 0;
+    right: 35%; top: 0;
+    animation-delay: 0.3s;
+  }
+  .grid-lines span:nth-child(2) {
+    height: 1px; width: 0;
+    right: 0; top: 40%;
+    animation-delay: 0.6s;
+  }
+  .grid-lines span:nth-child(3) {
+    width: 1px; height: 0;
+    right: 20%; top: 0;
+    opacity: 0;
+    animation-delay: 0.9s;
+  }
+
+  @keyframes lineReveal {
+    0%   { opacity: 0; }
+    10%  { opacity: 0.3; }
+    100% { opacity: 0.18; height: 100%; width: 100%; }
+  }
+
+  .hero-building {
+    position: absolute;
+    right: 0; bottom: 0;
+    width: 50%;
+    height: 90%;
+    background: linear-gradient(to top, rgba(201,168,76,0.05) 0%, transparent 70%);
+    clip-path: polygon(
+      15% 100%, 15% 45%, 20% 45%, 20% 35%, 30% 35%,
+      30% 20%, 35% 20%, 35% 35%, 45% 35%, 45% 15%,
+      50% 15%, 50% 35%, 60% 35%, 60% 25%, 65% 25%,
+      65% 35%, 70% 35%, 70% 45%, 80% 45%, 80% 100%
+    );
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 4rem 6rem;
+    max-width: 700px;
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s var(--ease) 0.4s forwards;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 2.5rem; height: 1px;
+    background: var(--gold);
+  }
+  .hero-eyebrow-text {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 5.5vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.9s var(--ease) 0.6s forwards;
+  }
+  .hero-title em { font-style: italic; color: var(--gold); }
+
+  .hero-sub {
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(245,240,232,0.65);
+    max-width: 480px;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.9s var(--ease) 0.8s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    opacity: 0;
+    animation: fadeUp 0.9s var(--ease) 1s forwards;
+  }
+
+  .btn-primary {
+    padding: 1rem 2.4rem;
+    background: var(--gold);
+    color: var(--black);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-lt); transform: translateY(-2px); }
+
+  .btn-ghost {
+    padding: 1rem 2.4rem;
+    border: 1px solid rgba(245,240,232,0.3);
+    color: var(--cream);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-stats {
+    position: absolute;
+    bottom: 6rem;
+    right: 4rem;
+    display: flex;
+    gap: 3rem;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.4s forwards;
+  }
+  .hero-stat-item { text-align: right; }
+  .hero-stat-num {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.5);
+    margin-top: 0.3rem;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.8s forwards;
+  }
+  .hero-scroll-text {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
+  }
+  .hero-scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: pulse 2s ease infinite;
+  }
+
+  /* SEARCH BAR */
+  .search-section {
+    background: var(--graphite);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 4rem;
+    width: 100%; /* FIX */
+  }
+
+  .search-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 0;
+    border: 1px solid var(--border);
+  }
+
+  .search-field {
+    padding: 1.2rem 1.8rem;
+    border-right: 1px solid var(--border);
+    background: transparent;
+    position: relative;
+    min-width: 0; /* FIX: evita que fields empurrem para fora */
+  }
+  .search-field:last-of-type { border-right: none; }
+
+  .search-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  .search-select {
+    background: transparent;
+    border: none;
+    color: var(--cream);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 300;
+    width: 100%;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+  }
+  .search-select option { background: var(--dark); }
+
+  .search-input {
+    background: transparent;
+    border: none;
+    color: var(--cream);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 300;
+    width: 100%;
+    outline: none;
+  }
+  .search-input::placeholder { color: rgba(245,240,232,0.4); }
+
+  .search-btn {
+    padding: 0 2.4rem;
+    background: var(--gold);
+    color: var(--black);
+    border: none;
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .search-btn:hover { background: var(--gold-lt); }
+
+  /* SECTION COMMONS */
+  .section-header { margin-bottom: 4rem; }
+  .section-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+  }
+  .section-eyebrow::before {
+    content: '';
+    width: 1.8rem; height: 1px;
+    background: var(--gold);
+  }
+  .section-eyebrow-text {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--white);
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-desc {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: rgba(245,240,232,0.6);
+    max-width: 480px;
+  }
+
+  /* PROPERTIES SECTION */
+  .properties {
+    padding: 7rem 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%; /* FIX */
+  }
+
+  .properties-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 4rem;
+  }
+
+  .filter-tabs {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--border);
+  }
+  .filter-tab {
+    padding: 0.6rem 1.4rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.5);
+    background: transparent;
+    border: none;
+    border-right: 1px solid var(--border);
+    cursor: pointer;
+    font-family: var(--sans);
+    transition: all 0.2s;
+  }
+  .filter-tab:last-child { border-right: none; }
+  .filter-tab.active, .filter-tab:hover { background: var(--gold); color: var(--black); }
+
+  .properties-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 1.5px;
+  }
+
+  .prop-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--graphite);
+    min-width: 0; /* FIX */
+  }
+  .prop-card:nth-child(1) { grid-column: 1 / 3; grid-row: 1; }
+
+  .prop-card-img { width: 100%; transition: transform 0.8s cubic-bezier(.22,.68,0,1.1); }
+  .prop-card:nth-child(1) .prop-card-img { height: 480px; }
+  .prop-card:not(:nth-child(1)) .prop-card-img { height: 310px; }
+
+  .prop-card-img-inner {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.8s cubic-bezier(.22,.68,0,1.1);
+  }
+  .prop-card:hover .prop-card-img-inner { transform: scale(1.08); }
+
+  .img-villa {
+    background: linear-gradient(160deg, #1a2535 0%, #0d1a2a 30%, #112030 60%, #0a1520 100%);
+    position: relative;
+  }
+  .img-villa::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 60%;
+    background: linear-gradient(to top, rgba(201,168,76,0.1) 0%, transparent 100%);
+  }
+  .img-apt  { background: linear-gradient(135deg, #1c1c2e 0%, #16213e 50%, #0f3460 100%); }
+  .img-penthouse { background: linear-gradient(160deg, #2d1b1b 0%, #1a0d0d 60%, #0d0808 100%); }
+  .img-house { background: linear-gradient(135deg, #0d1a0d 0%, #1a2e1a 60%, #102010 100%); }
+  .img-condo { background: linear-gradient(135deg, #1a1a2e 0%, #2e1a1a 50%, #1a2e2e 100%); }
+
+  .prop-shape {
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 55%; height: 85%;
+    opacity: 0.12;
+  }
+  .shape-tower {
+    background: var(--gold);
+    clip-path: polygon(
+      20% 100%, 20% 30%, 30% 30%, 30% 10%, 40% 10%,
+      40% 30%, 50% 30%, 50% 0%, 55% 0%, 55% 30%,
+      65% 30%, 65% 25%, 70% 25%, 70% 30%, 75% 30%,
+      75% 100%
+    );
+  }
+  .shape-house {
+    background: var(--gold);
+    clip-path: polygon(10% 100%, 10% 60%, 0 60%, 50% 10%, 100% 60%, 90% 60%, 90% 100%);
+  }
+
+  .prop-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.2) 40%, transparent 70%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+    transition: background 0.4s;
+  }
+  .prop-card:hover .prop-overlay {
+    background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.5) 60%, rgba(201,168,76,0.05) 100%);
+  }
+
+  .prop-badge {
+    position: absolute;
+    top: 1.2rem; left: 1.2rem;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .badge-destaque { background: var(--gold); color: var(--black); }
+  .badge-novo { background: #2c4a2c; color: #6fc56f; border: 1px solid #4a8a4a; }
+  .badge-exclusivo { background: rgba(201,168,76,0.1); color: var(--gold); border: 1px solid var(--gold); }
+
+  .prop-tag { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
+  .prop-name { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; color: var(--white); margin-bottom: 0.3rem; line-height: 1.2; }
+  .prop-card:nth-child(1) .prop-name { font-size: 1.8rem; }
+  .prop-location { font-size: 0.78rem; color: rgba(245,240,232,0.55); margin-bottom: 1rem; }
+  .prop-features { display: flex; gap: 1.2rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+  .prop-feat { font-size: 0.72rem; color: rgba(245,240,232,0.6); display: flex; align-items: center; gap: 0.3rem; }
+  .prop-feat-icon { width: 14px; height: 14px; fill: var(--gold); opacity: 0.8; }
+
+  .prop-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-top: 1px solid rgba(201,168,76,0.15);
+    padding-top: 1rem;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .prop-card:hover .prop-footer { opacity: 1; transform: translateY(0); }
+
+  .prop-price-label { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(245,240,232,0.4); }
+  .prop-price { font-family: var(--serif); font-size: 1.4rem; font-weight: 700; color: var(--gold); line-height: 1; }
+  .prop-action {
+    width: 38px; height: 38px;
+    border: 1px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold);
+    font-size: 1.1rem;
+    transition: background 0.2s, color 0.2s;
+  }
+  .prop-card:hover .prop-action { background: var(--gold); color: var(--black); }
+
+  .properties-more { text-align: center; margin-top: 3rem; }
+
+  /* DIFERENCIAIS */
+  .diferenciais {
+    background: var(--graphite);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 7rem 4rem;
+    width: 100%; /* FIX */
+  }
+
+  .diferenciais-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .dif-visual { position: relative; height: 420px; }
+
+  .dif-big-num {
+    font-family: var(--serif);
+    font-size: 16rem;
+    font-weight: 700;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(201,168,76,0.15);
+    position: absolute;
+    top: -2rem; left: -2rem;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .dif-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    position: relative;
+    z-index: 1;
+    padding-top: 3rem;
+  }
+
+  .dif-stat {
+    padding: 1.8rem;
+    border: 1px solid var(--border);
+    background: rgba(10,10,10,0.5);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .dif-stat:hover { border-color: var(--gold); }
+  .dif-stat::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.4s var(--ease);
+    transform-origin: left;
+  }
+  .dif-stat:hover::before { transform: scaleX(1); }
+
+  .dif-stat-num { font-family: var(--serif); font-size: 2.6rem; font-weight: 700; color: var(--gold); line-height: 1; }
+  .dif-stat-unit { font-size: 1.2rem; color: var(--gold-lt); }
+  .dif-stat-label { margin-top: 0.5rem; font-size: 0.75rem; font-weight: 300; color: rgba(245,240,232,0.55); line-height: 1.4; }
+
+  .dif-items { display: flex; flex-direction: column; gap: 1.8rem; margin-top: 2.5rem; }
+  .dif-item { display: flex; gap: 1.2rem; align-items: flex-start; }
+  .dif-icon {
+    width: 44px; height: 44px;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.1rem;
+    color: var(--gold);
+    background: rgba(201,168,76,0.05);
+  }
+  .dif-item-title { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--white); margin-bottom: 0.25rem; }
+  .dif-item-desc { font-size: 0.83rem; font-weight: 300; color: rgba(245,240,232,0.55); line-height: 1.5; }
+
+  /* BAIRROS */
+  .bairros {
+    padding: 7rem 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%; /* FIX */
+  }
+
+  .bairros-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5px;
+    margin-top: 3.5rem;
+  }
+
+  .bairro-card {
+    position: relative;
+    overflow: hidden;
+    height: 340px;
+    cursor: pointer;
+  }
+
+  .bairro-bg {
+    width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.7s ease;
+  }
+  .bairro-card:hover .bairro-bg { transform: scale(1.08); }
+
+  .b1 { background: linear-gradient(160deg, #0a1a2e 0%, #051025 50%, #020d1a 100%); }
+  .b2 { background: linear-gradient(160deg, #1a0d0d 0%, #250a0a 50%, #120505 100%); }
+  .b3 { background: linear-gradient(160deg, #0d1a0d 0%, #0a2010 50%, #051005 100%); }
+  .b4 { background: linear-gradient(160deg, #1a1a0d 0%, #252010 50%, #121005 100%); }
+
+  .bairro-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.85) 0%, transparent 60%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.8rem;
+    transition: background 0.3s;
+  }
+  .bairro-card:hover .bairro-overlay {
+    background: linear-gradient(to top, rgba(10,10,10,0.92) 0%, rgba(201,168,76,0.08) 100%);
+  }
+
+  .bairro-count { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
+  .bairro-name { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; color: var(--white); }
+  .bairro-arrow {
+    position: absolute;
+    top: 1.2rem; right: 1.2rem;
+    width: 34px; height: 34px;
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold);
+    font-size: 0.9rem;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .bairro-card:hover .bairro-arrow { opacity: 1; transform: translateX(0); }
+
+  /* TESTIMONIALS */
+  .testimonials {
+    background: var(--graphite);
+    border-top: 1px solid var(--border);
+    padding: 7rem 4rem;
+    width: 100%; /* FIX */
+  }
+
+  .testimonials-inner { max-width: 1200px; margin: 0 auto; }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    margin-top: 3.5rem;
+  }
+
+  .testi-card {
+    padding: 2.5rem;
+    background: rgba(10,10,10,0.6);
+    border: 1px solid var(--border);
+    position: relative;
+    transition: border-color 0.3s;
+    min-width: 0; /* FIX */
+  }
+  .testi-card:hover { border-color: rgba(201,168,76,0.5); }
+  .testi-card::before {
+    content: '\201C';
+    position: absolute;
+    top: 1rem; right: 1.5rem;
+    font-family: var(--serif);
+    font-size: 5rem;
+    color: var(--gold);
+    opacity: 0.15;
+    line-height: 1;
+  }
+
+  .testi-stars { display: flex; gap: 0.25rem; margin-bottom: 1.2rem; }
+  .testi-star { color: var(--gold); font-size: 0.8rem; }
+  .testi-text { font-family: var(--serif); font-style: italic; font-size: 0.95rem; color: rgba(245,240,232,0.8); line-height: 1.7; margin-bottom: 1.5rem; }
+  .testi-author { display: flex; align-items: center; gap: 0.8rem; border-top: 1px solid var(--border); padding-top: 1.2rem; }
+  .testi-avatar {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--black);
+    flex-shrink: 0;
+  }
+  .av-gold { background: var(--gold); }
+  .av-cream { background: var(--cream); }
+  .av-white { background: var(--white); }
+  .testi-author-name { font-size: 0.88rem; font-weight: 600; color: var(--white); }
+  .testi-author-desc { font-size: 0.72rem; color: rgba(245,240,232,0.45); }
+
+  /* CTA */
+  .cta-section {
+    padding: 8rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    width: 100%; /* FIX */
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-title { font-family: var(--serif); font-size: clamp(2.2rem, 4vw, 3.8rem); font-weight: 700; line-height: 1.1; margin-bottom: 1.5rem; position: relative; }
+  .cta-title em { font-style: italic; color: var(--gold); }
+  .cta-desc { font-size: 1rem; font-weight: 300; color: rgba(245,240,232,0.6); margin-bottom: 3rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  /* AGENTS */
+  .agents {
+    background: var(--graphite);
+    border-top: 1px solid var(--border);
+    padding: 7rem 4rem;
+    width: 100%; /* FIX */
+  }
+  .agents-inner { max-width: 1200px; margin: 0 auto; }
+  .agents-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5px;
+    margin-top: 3.5rem;
+  }
+  .agent-card {
+    background: rgba(10,10,10,0.6);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: border-color 0.3s;
+    cursor: pointer;
+    min-width: 0; /* FIX */
+  }
+  .agent-card:hover { border-color: rgba(201,168,76,0.5); }
+  .agent-photo {
+    height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif);
+    font-size: 4rem;
+    font-weight: 700;
+    position: relative;
+    overflow: hidden;
+  }
+  .agent-photo-inner {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem;
+  }
+  .ag1 { background: linear-gradient(160deg, #1a1208 0%, #251a08 100%); color: rgba(201,168,76,0.5); }
+  .ag2 { background: linear-gradient(160deg, #081a1a 0%, #0a2525 100%); color: rgba(201,168,76,0.5); }
+  .ag3 { background: linear-gradient(160deg, #1a0d08 0%, #251208 100%); color: rgba(201,168,76,0.5); }
+  .ag4 { background: linear-gradient(160deg, #0d1a08 0%, #122508 100%); color: rgba(201,168,76,0.5); }
+
+  .agent-info { padding: 1.5rem; border-top: 1px solid var(--border); }
+  .agent-name { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--white); margin-bottom: 0.2rem; }
+  .agent-role { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+  .agent-deals { font-size: 0.78rem; color: rgba(245,240,232,0.5); }
+  .agent-deals strong { color: var(--cream); }
+  .agent-contact { display: flex; gap: 0.5rem; margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+  .agent-btn {
+    flex: 1;
+    padding: 0.5rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    color: rgba(245,240,232,0.6);
+    transition: all 0.2s;
+  }
+  .agent-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .agent-btn.primary { background: rgba(201,168,76,0.1); border-color: var(--gold); color: var(--gold); }
+  .agent-btn.primary:hover { background: var(--gold); color: var(--black); }
+
+  /* CONTACT */
+  .contact {
+    padding: 7rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%; /* FIX */
+  }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+  .contact-info { display: flex; flex-direction: column; gap: 2rem; }
+  .contact-item { display: flex; gap: 1.2rem; align-items: flex-start; }
+  .contact-item-icon {
+    width: 44px; height: 44px;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold);
+    flex-shrink: 0;
+    font-size: 1.1rem;
+  }
+  .contact-item-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem; }
+  .contact-item-value { font-size: 0.92rem; color: rgba(245,240,232,0.8); font-weight: 300; }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+  .form-input, .form-select, .form-textarea {
+    padding: 0.9rem 1.2rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    color: var(--cream);
+    font-family: var(--sans);
+    font-size: 0.88rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--gold); }
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(245,240,232,0.25); }
+  .form-select { appearance: none; cursor: pointer; }
+  .form-select option { background: var(--dark); }
+  .form-textarea { resize: vertical; min-height: 120px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--graphite);
+    border-top: 1px solid var(--border);
+    padding: 4rem 4rem 2rem;
+    width: 100%; /* FIX */
+  }
+  .footer-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+  .footer-brand-desc { font-size: 0.83rem; font-weight: 300; color: rgba(245,240,232,0.5); line-height: 1.7; margin-top: 1rem; max-width: 260px; }
+  .footer-social { display: flex; gap: 0.6rem; margin-top: 1.5rem; }
+  .footer-soc {
+    width: 34px; height: 34px;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(245,240,232,0.4);
+    text-decoration: none;
+    font-size: 0.75rem;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .footer-soc:hover { border-color: var(--gold); color: var(--gold); }
+  .footer-col-title { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-links a { font-size: 0.83rem; font-weight: 300; color: rgba(245,240,232,0.5); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 0.72rem; color: rgba(245,240,232,0.3); }
+  .footer-copy span { color: var(--gold); }
+  .footer-legal { display: flex; gap: 1.5rem; }
+  .footer-legal a { font-size: 0.72rem; color: rgba(245,240,232,0.3); text-decoration: none; transition: color 0.2s; }
+  .footer-legal a:hover { color: var(--gold); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50%       { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* FLOATING WHATSAPP */
+  .whatsapp-float {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 999;
+    width: 56px; height: 56px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    text-decoration: none;
+    color: white;
+    font-size: 1.4rem;
+    transition: transform 0.3s var(--ease), box-shadow 0.3s;
+    animation: waPulse 3s ease infinite;
+  }
+  .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(37,211,102,0.6); }
+  @keyframes waPulse {
+    0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.4); }
+    50%       { box-shadow: 0 4px 40px rgba(37,211,102,0.7); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    nav { padding: 1.25rem 2rem; }
+    nav.scrolled { padding: 0.85rem 2rem; }
+    .nav-links { gap: 1.5rem; }
+    .hero-content { padding: 0 2rem 5rem; }
+    .hero-stats { right: 2rem; gap: 2rem; }
+    .search-section { padding: 2rem; }
+    .search-wrapper { grid-template-columns: 1fr 1fr; }
+    .search-btn { grid-column: 1 / -1; padding: 1rem; }
+    .properties { padding: 5rem 2rem; }
+    .properties-grid { grid-template-columns: repeat(2, 1fr); }
+    .prop-card:nth-child(1) { grid-column: 1 / -1; }
+    .diferenciais { padding: 5rem 2rem; }
+    .diferenciais-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .bairros { padding: 5rem 2rem; }
+    .bairros-grid { grid-template-columns: repeat(2, 1fr); }
+    .testimonials { padding: 5rem 2rem; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .agents { padding: 5rem 2rem; }
+    .agents-grid { grid-template-columns: repeat(2, 1fr); }
+    .contact { padding: 5rem 2rem; }
+    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    footer { padding: 3rem 2rem 1.5rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero-content { padding: 0 1.5rem 4rem; }
+    .hero-stats { display: none; }
+    .search-wrapper { grid-template-columns: 1fr; }
+    .properties-grid { grid-template-columns: 1fr; }
+    .prop-card:nth-child(1) { grid-column: auto; }
+    .bairros-grid { grid-template-columns: 1fr; }
+    .agents-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    .form-row { grid-template-columns: 1fr; }
+    .cta-section { padding: 5rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">É</div>
+    <span class="nav-logo-text">Élite <span>Imóveis</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#imoveis">Imóveis</a></li>
+    <li><a href="#bairros">Bairros</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#equipe">Equipe</a></li>
+    <li><a href="#contato" class="nav-cta">Fale Conosco</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid">
+    <div class="grid-lines">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+  <div class="hero-building"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-text">Imóveis de alto padrão</span>
+    </div>
+    <h1 class="hero-title">
+      Onde o luxo<br>encontra o <em>lar</em><br>dos seus sonhos.
+    </h1>
+    <p class="hero-sub">
+      Há mais de 15 anos conectando famílias aos imóveis mais exclusivos de Santa Catarina. Excelência, discrição e resultados.
+    </p>
+    <div class="hero-actions">
+      <a href="#imoveis" class="btn-primary">Ver Imóveis</a>
+      <a href="#contato" class="btn-ghost">Fale com um Especialista</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat-item">
+      <span class="hero-stat-num">1.200<span style="font-size:1.2rem">+</span></span>
+      <div class="hero-stat-label">Imóveis Vendidos</div>
+    </div>
+    <div class="hero-stat-item">
+      <span class="hero-stat-num">98<span style="font-size:1rem">%</span></span>
+      <div class="hero-stat-label">Satisfação dos Clientes</div>
+    </div>
+    <div class="hero-stat-item">
+      <span class="hero-stat-num">15<span style="font-size:1rem">+</span></span>
+      <div class="hero-stat-label">Anos de Experiência</div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span class="hero-scroll-text">Rolar</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<div class="search-section">
+  <div class="search-wrapper">
+    <div class="search-field">
+      <label class="search-label">Tipo de Imóvel</label>
+      <select class="search-select">
+        <option>Todos os tipos</option>
+        <option>Apartamento</option>
+        <option>Casa</option>
+        <option>Penthouse</option>
+        <option>Terreno</option>
+        <option>Cobertura</option>
+      </select>
+    </div>
+    <div class="search-field">
+      <label class="search-label">Cidade</label>
+      <select class="search-select" id="select-cidade">
+        <option value="">Todas as cidades</option>
+        <option value="itapema">Itapema</option>
+        <option value="balneario-camboriu">Balneário Camboriú</option>
+        <option value="florianopolis">Florianópolis</option>
+        <option value="bombinhas">Bombinhas</option>
+        <option value="porto-belo">Porto Belo</option>
+      </select>
+    </div>
+    <div class="search-field">
+      <label class="search-label">Faixa de Valor</label>
+      <select class="search-select">
+        <option>Qualquer valor</option>
+        <option>Até R$ 500mil</option>
+        <option>R$ 500mil – R$ 1mi</option>
+        <option>R$ 1mi – R$ 3mi</option>
+        <option>Acima de R$ 3mi</option>
+      </select>
+    </div>
+    <button class="search-btn">Buscar →</button>
+  </div>
+</div>
+
+<!-- PROPERTIES -->
+<section class="properties" id="imoveis">
+  <div class="properties-header reveal">
+    <div class="section-header">
+      <div class="section-eyebrow">
+        <span class="section-eyebrow-text">Portfólio Exclusivo</span>
+      </div>
+      <h2 class="section-title">Imóveis em <em>destaque</em></h2>
+      <p class="section-desc">Selecionados a dedo pela nossa equipe para oferecer o melhor em localização, acabamento e valorização.</p>
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-tab active">Todos</button>
+      <button class="filter-tab">Venda</button>
+      <button class="filter-tab">Locação</button>
+      <button class="filter-tab">Lançamentos</button>
+    </div>
+  </div>
+
+  <div class="properties-grid">
+    <div class="prop-card reveal" data-cat="venda lançamentos" data-cidade="itapema">
+      <div class="prop-card-img">
+        <div class="prop-card-img-inner img-villa" style="height:480px">
+          <div class="prop-shape shape-tower"></div>
+        </div>
+      </div>
+      <span class="prop-badge badge-destaque">Destaque</span>
+      <div class="prop-overlay">
+        <div class="prop-tag">Penthouse</div>
+        <div class="prop-name">Sky Residence — Edifício Horizon</div>
+        <div class="prop-location">📍 Meia Praia, Itapema — SC</div>
+        <div class="prop-features">
+          <span class="prop-feat">
+            <svg class="prop-feat-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            5 suítes
+          </span>
+          <span class="prop-feat">
+            <svg class="prop-feat-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            480 m²
+          </span>
+          <span class="prop-feat">
+            <svg class="prop-feat-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Vista mar 360°
+          </span>
+          <span class="prop-feat">🚗 4 vagas</span>
+        </div>
+        <div class="prop-footer">
+          <div>
+            <div class="prop-price-label">Valor</div>
+            <div class="prop-price">R$ 4.800.000</div>
+          </div>
+          <div class="prop-action">→</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prop-card reveal" data-cat="venda lançamentos" data-cidade="balneario-camboriu">
+      <div class="prop-card-img">
+        <div class="prop-card-img-inner img-apt" style="height:310px">
+          <div class="prop-shape shape-tower"></div>
+        </div>
+      </div>
+      <span class="prop-badge badge-novo">Novo</span>
+      <div class="prop-overlay">
+        <div class="prop-tag">Apartamento</div>
+        <div class="prop-name">Residencial Grand Park</div>
+        <div class="prop-location">📍 Centro, Balneário Camboriú</div>
+        <div class="prop-features">
+          <span class="prop-feat">3 suítes</span>
+          <span class="prop-feat">220 m²</span>
+          <span class="prop-feat">2 vagas</span>
+        </div>
+        <div class="prop-footer">
+          <div>
+            <div class="prop-price-label">A partir de</div>
+            <div class="prop-price">R$ 1.650.000</div>
+          </div>
+          <div class="prop-action">→</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prop-card reveal" data-cat="venda" data-cidade="bombinhas">
+      <div class="prop-card-img">
+        <div class="prop-card-img-inner img-penthouse" style="height:310px">
+          <div class="prop-shape shape-house"></div>
+        </div>
+      </div>
+      <span class="prop-badge badge-exclusivo">Exclusivo</span>
+      <div class="prop-overlay">
+        <div class="prop-tag">Casa de Alto Padrão</div>
+        <div class="prop-name">Villa Serena — Condomínio fechado</div>
+        <div class="prop-location">📍 Portobello, Bombinhas</div>
+        <div class="prop-features">
+          <span class="prop-feat">4 suítes</span>
+          <span class="prop-feat">680 m²</span>
+          <span class="prop-feat">6 vagas</span>
+        </div>
+        <div class="prop-footer">
+          <div>
+            <div class="prop-price-label">Valor</div>
+            <div class="prop-price">R$ 3.200.000</div>
+          </div>
+          <div class="prop-action">→</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prop-card reveal" data-cat="locação" data-cidade="florianopolis">
+      <div class="prop-card-img">
+        <div class="prop-card-img-inner img-house" style="height:310px">
+          <div class="prop-shape shape-house"></div>
+        </div>
+      </div>
+      <div class="prop-overlay">
+        <div class="prop-tag">Apartamento</div>
+        <div class="prop-name">Ocean Blue Tower</div>
+        <div class="prop-location">📍 Agronômica, Florianópolis</div>
+        <div class="prop-features">
+          <span class="prop-feat">2 suítes</span>
+          <span class="prop-feat">145 m²</span>
+          <span class="prop-feat">2 vagas</span>
+        </div>
+        <div class="prop-footer">
+          <div>
+            <div class="prop-price-label">A partir de</div>
+            <div class="prop-price">R$ 890.000</div>
+          </div>
+          <div class="prop-action">→</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prop-card reveal" data-cat="locação lançamentos" data-cidade="itapema">
+      <div class="prop-card-img">
+        <div class="prop-card-img-inner img-condo" style="height:310px">
+          <div class="prop-shape shape-tower"></div>
+        </div>
+      </div>
+      <span class="prop-badge badge-destaque">Premium</span>
+      <div class="prop-overlay">
+        <div class="prop-tag">Cobertura</div>
+        <div class="prop-name">Reserva Atlântica</div>
+        <div class="prop-location">📍 Morretes, Itapema</div>
+        <div class="prop-features">
+          <span class="prop-feat">3 suítes</span>
+          <span class="prop-feat">310 m²</span>
+          <span class="prop-feat">Piscina privativa</span>
+        </div>
+        <div class="prop-footer">
+          <div>
+            <div class="prop-price-label">Valor</div>
+            <div class="prop-price">R$ 2.100.000</div>
+          </div>
+          <div class="prop-action">→</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="properties-more reveal">
+    <a href="#" class="btn-ghost" style="display:inline-block;margin-top:1rem">Ver todos os imóveis →</a>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section class="diferenciais" id="sobre">
+  <div class="diferenciais-inner">
+    <div class="dif-visual reveal">
+      <div class="dif-big-num">15</div>
+      <div class="dif-stats">
+        <div class="dif-stat">
+          <div class="dif-stat-num">1.2k<span class="dif-stat-unit">+</span></div>
+          <div class="dif-stat-label">Imóveis negociados com sucesso</div>
+        </div>
+        <div class="dif-stat">
+          <div class="dif-stat-num">R$2.8<span class="dif-stat-unit">bi</span></div>
+          <div class="dif-stat-label">Em volume de negócios realizados</div>
+        </div>
+        <div class="dif-stat">
+          <div class="dif-stat-num">98<span class="dif-stat-unit">%</span></div>
+          <div class="dif-stat-label">De clientes satisfeitos recomendam</div>
+        </div>
+        <div class="dif-stat">
+          <div class="dif-stat-num">15<span class="dif-stat-unit">+</span></div>
+          <div class="dif-stat-label">Anos de presença no litoral catarinense</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="section-header">
+        <div class="section-eyebrow">
+          <span class="section-eyebrow-text">Por que a Élite?</span>
+        </div>
+        <h2 class="section-title">Mais que uma imobiliária,<br>um <em>parceiro</em> de confiança.</h2>
+      </div>
+
+      <div class="dif-items">
+        <div class="dif-item">
+          <div class="dif-icon">⭐</div>
+          <div>
+            <div class="dif-item-title">Portfólio Exclusivo</div>
+            <div class="dif-item-desc">Acesso a imóveis que não estão no mercado aberto. Nosso banco de dados conta com propriedades únicas, disponíveis apenas para clientes cadastrados.</div>
+          </div>
+        </div>
+        <div class="dif-item">
+          <div class="dif-icon">🤝</div>
+          <div>
+            <div class="dif-item-title">Consultoria Personalizada</div>
+            <div class="dif-item-desc">Cada cliente tem um consultor dedicado. Entendemos seu estilo de vida, objetivos e budget para encontrar o imóvel perfeito.</div>
+          </div>
+        </div>
+        <div class="dif-item">
+          <div class="dif-icon">⚖️</div>
+          <div>
+            <div class="dif-item-title">Segurança Jurídica Total</div>
+            <div class="dif-item-desc">Equipe jurídica interna para análise documental, due diligence completa e acompanhamento em todo o processo de compra e venda.</div>
+          </div>
+        </div>
+        <div class="dif-item">
+          <div class="dif-icon">📈</div>
+          <div>
+            <div class="dif-item-title">Avaliação de Mercado</div>
+            <div class="dif-item-desc">Laudos técnicos de avaliação baseados em dados reais de mercado, para garantir a melhor negociação pelo seu imóvel.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BAIRROS -->
+<section class="bairros" id="bairros">
+  <div class="reveal">
+    <div class="section-eyebrow">
+      <span class="section-eyebrow-text">Regiões em destaque</span>
+    </div>
+    <h2 class="section-title">Explore os melhores <em>bairros</em></h2>
+  </div>
+
+  <div class="bairros-grid">
+    <div class="bairro-card reveal" data-cidade="itapema">
+      <div class="bairro-bg b1">
+        <div class="prop-shape shape-tower" style="opacity:0.08"></div>
+      </div>
+      <div class="bairro-overlay">
+        <div class="bairro-count">38 imóveis disponíveis</div>
+        <div class="bairro-name">Meia Praia — Itapema</div>
+      </div>
+      <div class="bairro-arrow">→</div>
+    </div>
+    <div class="bairro-card reveal" data-cidade="balneario-camboriu">
+      <div class="bairro-bg b2"></div>
+      <div class="bairro-overlay">
+        <div class="bairro-count">52 imóveis disponíveis</div>
+        <div class="bairro-name">Centro — Bal. Camboriú</div>
+      </div>
+      <div class="bairro-arrow">→</div>
+    </div>
+    <div class="bairro-card reveal" data-cidade="florianopolis">
+      <div class="bairro-bg b3"></div>
+      <div class="bairro-overlay">
+        <div class="bairro-count">24 imóveis disponíveis</div>
+        <div class="bairro-name">Jurerê Internacional</div>
+      </div>
+      <div class="bairro-arrow">→</div>
+    </div>
+    <div class="bairro-card reveal" data-cidade="bombinhas">
+      <div class="bairro-bg b4"></div>
+      <div class="bairro-overlay">
+        <div class="bairro-count">17 imóveis disponíveis</div>
+        <div class="bairro-name">Bombinhas — Portobello</div>
+      </div>
+      <div class="bairro-arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- PAINEL IMÓVEIS POR CIDADE -->
+<section id="painel-cidade" style="display:none; background:var(--black); border-top:1px solid var(--border); padding:5rem 4rem;">
+  <div style="max-width:1400px; margin:0 auto;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:3rem; flex-wrap:wrap; gap:1rem;">
+      <div>
+        <div style="display:flex; align-items:center; gap:0.8rem; margin-bottom:0.8rem;">
+          <span style="width:1.8rem; height:1px; background:var(--gold); display:inline-block;"></span>
+          <span id="painel-eyebrow" style="font-size:0.68rem; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold);">Região selecionada</span>
+        </div>
+        <h2 id="painel-titulo" style="font-family:var(--serif); font-size:2.2rem; font-weight:700; color:var(--white); line-height:1.1;">Imóveis em <em style="font-style:italic;color:var(--gold);">destaque</em></h2>
+      </div>
+      <button id="painel-fechar" style="padding:0.7rem 1.6rem; border:1px solid var(--border); background:transparent; color:rgba(245,240,232,0.6); font-family:var(--sans); font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer; transition:all 0.2s;">
+        ✕ Fechar
+      </button>
+    </div>
+    <div id="painel-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.5px;"></div>
+    <div id="painel-vazio" style="display:none; text-align:center; padding:4rem 2rem;">
+      <div style="font-size:2.5rem; margin-bottom:1rem;">🏙️</div>
+      <div style="font-family:var(--serif); font-size:1.3rem; color:var(--white); margin-bottom:0.5rem;">Nenhum imóvel disponível</div>
+      <div style="font-size:0.85rem; color:rgba(245,240,232,0.5);">Em breve novos imóveis nesta região. Entre em contato!</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="testimonials-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">
+        <span class="section-eyebrow-text">Depoimentos</span>
+      </div>
+      <h2 class="section-title">O que nossos <em>clientes</em> dizem</h2>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"A equipe da Élite foi excepcional. Desde o primeiro contato até a assinatura, tudo foi conduzido com profissionalismo e atenção aos detalhes. Encontramos o apartamento perfeito em menos de 30 dias."</p>
+        <div class="testi-author">
+          <div class="testi-avatar av-gold">M</div>
+          <div>
+            <div class="testi-author-name">Marcelo & Ana Lima</div>
+            <div class="testi-author-desc">Adquiriram cobertura em Itapema</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Vendi meu apartamento 18% acima do preço de mercado graças à estratégia de posicionamento que eles desenvolveram. Resultado extraordinário e processo tranquilo."</p>
+        <div class="testi-author">
+          <div class="testi-avatar av-cream">R</div>
+          <div>
+            <div class="testi-author-name">Ricardo Ferreira</div>
+            <div class="testi-author-desc">Vendeu imóvel em Florianópolis</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Como investidor, preciso de uma imobiliária que entenda de rentabilidade. A Élite me apresentou oportunidades que nenhuma outra corretora havia me mostrado. ROI excelente."</p>
+        <div class="testi-author">
+          <div class="testi-avatar av-white">P</div>
+          <div>
+            <div class="testi-author-name">Patricia Morais</div>
+            <div class="testi-author-desc">Investidora — portfólio de 7 imóveis</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="reveal">
+    <h2 class="cta-title">Pronto para encontrar<br>o seu <em>imóvel ideal?</em></h2>
+    <p class="cta-desc">Agende uma conversa gratuita com um de nossos consultores especializados e dê o primeiro passo.</p>
+    <div class="cta-actions">
+      <a href="#contato" class="btn-primary">Agendar Consulta Gratuita</a>
+      <a href="https://wa.me/5547999999999" class="btn-ghost">💬 WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- AGENTS -->
+<section class="agents" id="equipe">
+  <div class="agents-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">
+        <span class="section-eyebrow-text">Nossa Equipe</span>
+      </div>
+      <h2 class="section-title">Consultores <em>especialistas</em></h2>
+    </div>
+
+    <div class="agents-grid">
+      <div class="agent-card reveal">
+        <div class="agent-photo ag1">👤</div>
+        <div class="agent-info">
+          <div class="agent-name">Carlos Mendonça</div>
+          <div class="agent-role">Diretor Comercial</div>
+          <div class="agent-deals">+<strong>320</strong> negócios fechados</div>
+          <div class="agent-contact">
+            <a href="#" class="agent-btn primary">Contatar</a>
+            <a href="#" class="agent-btn">Ver perfil</a>
+          </div>
+        </div>
+      </div>
+      <div class="agent-card reveal">
+        <div class="agent-photo ag2">👤</div>
+        <div class="agent-info">
+          <div class="agent-name">Fernanda Alves</div>
+          <div class="agent-role">Consultora Sênior</div>
+          <div class="agent-deals">+<strong>250</strong> negócios fechados</div>
+          <div class="agent-contact">
+            <a href="#" class="agent-btn primary">Contatar</a>
+            <a href="#" class="agent-btn">Ver perfil</a>
+          </div>
+        </div>
+      </div>
+      <div class="agent-card reveal">
+        <div class="agent-photo ag3">👤</div>
+        <div class="agent-info">
+          <div class="agent-name">Rafael Torres</div>
+          <div class="agent-role">Especialista em Luxo</div>
+          <div class="agent-deals">+<strong>180</strong> negócios fechados</div>
+          <div class="agent-contact">
+            <a href="#" class="agent-btn primary">Contatar</a>
+            <a href="#" class="agent-btn">Ver perfil</a>
+          </div>
+        </div>
+      </div>
+      <div class="agent-card reveal">
+        <div class="agent-photo ag4">👤</div>
+        <div class="agent-info">
+          <div class="agent-name">Isabela Costa</div>
+          <div class="agent-role">Consultora — Litoral Norte</div>
+          <div class="agent-deals">+<strong>210</strong> negócios fechados</div>
+          <div class="agent-contact">
+            <a href="#" class="agent-btn primary">Contatar</a>
+            <a href="#" class="agent-btn">Ver perfil</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contato">
+  <div class="contact-grid">
+    <div>
+      <div class="section-header reveal">
+        <div class="section-eyebrow">
+          <span class="section-eyebrow-text">Contato</span>
+        </div>
+        <h2 class="section-title">Vamos <em>conversar</em></h2>
+        <p class="section-desc">Nossa equipe está disponível para uma conversa sem compromisso sobre seus objetivos imobiliários.</p>
+      </div>
+
+      <div class="contact-info">
+        <div class="contact-item reveal">
+          <div class="contact-item-icon">📍</div>
+          <div>
+            <div class="contact-item-label">Endereço</div>
+            <div class="contact-item-value">Av. Nereu Ramos, 2.850 — sala 401<br>Meia Praia, Itapema — SC</div>
+          </div>
+        </div>
+        <div class="contact-item reveal">
+          <div class="contact-item-icon">📞</div>
+          <div>
+            <div class="contact-item-label">Telefone</div>
+            <div class="contact-item-value">(47) 3399-9999<br>(47) 99999-9999</div>
+          </div>
+        </div>
+        <div class="contact-item reveal">
+          <div class="contact-item-icon">✉️</div>
+          <div>
+            <div class="contact-item-label">E-mail</div>
+            <div class="contact-item-value">contato@eliteimoveis.com.br</div>
+          </div>
+        </div>
+        <div class="contact-item reveal">
+          <div class="contact-item-icon">🕐</div>
+          <div>
+            <div class="contact-item-label">Horário de Atendimento</div>
+            <div class="contact-item-value">Seg–Sex: 9h às 18h<br>Sáb: 9h às 13h</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Nome</label>
+            <input type="text" class="form-input" placeholder="Seu nome completo">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Telefone</label>
+            <input type="tel" class="form-input" placeholder="(47) 99999-9999">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">E-mail</label>
+          <input type="email" class="form-input" placeholder="seu@email.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Interesse</label>
+          <select class="form-select">
+            <option>Quero comprar um imóvel</option>
+            <option>Quero vender meu imóvel</option>
+            <option>Quero alugar um imóvel</option>
+            <option>Quero uma avaliação</option>
+            <option>Outro assunto</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Tipo</label>
+            <select class="form-select">
+              <option>Qualquer tipo</option>
+              <option>Apartamento</option>
+              <option>Casa</option>
+              <option>Cobertura</option>
+              <option>Terreno</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Budget</label>
+            <select class="form-select">
+              <option>Qualquer valor</option>
+              <option>Até R$ 500k</option>
+              <option>R$ 500k – R$ 1mi</option>
+              <option>R$ 1mi – R$ 3mi</option>
+              <option>Acima de R$ 3mi</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mensagem</label>
+          <textarea class="form-textarea" placeholder="Conte-nos mais sobre o que você procura..."></textarea>
+        </div>
+        <button class="btn-primary" style="width:100%;border:none;cursor:pointer;padding:1.1rem">
+          Enviar Mensagem →
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="#" class="nav-logo" style="text-decoration:none;display:flex;align-items:center;gap:0.6rem">
+        <div class="nav-logo-mark">É</div>
+        <span class="nav-logo-text">Élite <span>Imóveis</span></span>
+      </a>
+      <p class="footer-brand-desc">
+        Conectando famílias a imóveis extraordinários no litoral de Santa Catarina há mais de 15 anos. Exclusividade, confiança e resultados comprovados.
+      </p>
+      <div class="footer-social">
+        <a href="#" class="footer-soc">in</a>
+        <a href="#" class="footer-soc">ig</a>
+        <a href="#" class="footer-soc">fb</a>
+        <a href="#" class="footer-soc">yt</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="footer-col-title">Imóveis</div>
+      <ul class="footer-links">
+        <li><a href="#">Apartamentos</a></li>
+        <li><a href="#">Casas de Alto Padrão</a></li>
+        <li><a href="#">Coberturas & Penthouses</a></li>
+        <li><a href="#">Lançamentos</a></li>
+        <li><a href="#">Imóveis para Investir</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-col-title">Regiões</div>
+      <ul class="footer-links">
+        <li><a href="#">Itapema</a></li>
+        <li><a href="#">Balneário Camboriú</a></li>
+        <li><a href="#">Florianópolis</a></li>
+        <li><a href="#">Bombinhas</a></li>
+        <li><a href="#">Porto Belo</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-col-title">Empresa</div>
+      <ul class="footer-links">
+        <li><a href="#">Sobre nós</a></li>
+        <li><a href="#">Nossa equipe</a></li>
+        <li><a href="#">Blog & Notícias</a></li>
+        <li><a href="#">Trabalhe conosco</a></li>
+        <li><a href="#">Contato</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 <span>Élite Imóveis</span>. Todos os direitos reservados. CRECI-SC: 12.345-F</div>
+    <div class="footer-legal">
+      <a href="#">Política de Privacidade</a>
+      <a href="#">Termos de Uso</a>
+      <a href="#">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/5547999999999" class="whatsapp-float" title="Fale conosco no WhatsApp">💬</a>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  const filterMap = { 'Todos': 'todos', 'Venda': 'venda', 'Locação': 'locação', 'Lançamentos': 'lançamentos' };
+
+  document.querySelectorAll('.filter-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const filtro = filterMap[tab.textContent.trim()] || 'todos';
+      const cards = document.querySelectorAll('.prop-card');
+
+      cards.forEach(card => {
+        const cats = card.dataset.cat || '';
+        const visivel = filtro === 'todos' || cats.includes(filtro);
+
+        if (visivel) {
+          card.style.display = '';
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(16px)';
+          requestAnimationFrame(() => {
+            card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          });
+        } else {
+          card.style.transition = 'opacity 0.25s ease';
+          card.style.opacity = '0';
+          setTimeout(() => { card.style.display = 'none'; }, 260);
+        }
+      });
+
+      const featured = document.querySelector('.prop-card:first-child');
+      if (featured) {
+        const cats = featured.dataset.cat || '';
+        const visivel = filtro === 'todos' || cats.includes(filtro);
+        featured.style.gridColumn = visivel ? '1 / 3' : '';
+      }
+    });
+  });
+
+  const imoveis = [
+    { cidade:'itapema', cat:'venda', tipo:'Penthouse', nome:'Sky Residence — Edifício Horizon', bairro:'Meia Praia, Itapema', suites:5, area:480, vagas:4, preco:'R$ 4.800.000', badge:'Destaque', badgeClass:'badge-destaque', img:'img-villa', shape:'shape-tower' },
+    { cidade:'itapema', cat:'locação', tipo:'Cobertura', nome:'Reserva Atlântica', bairro:'Morretes, Itapema', suites:3, area:310, vagas:2, preco:'R$ 12.000/mês', badge:'Locação', badgeClass:'badge-exclusivo', img:'img-condo', shape:'shape-tower' },
+    { cidade:'itapema', cat:'venda', tipo:'Apartamento', nome:'Edifício Solar das Ondas', bairro:'Centro, Itapema', suites:2, area:98, vagas:1, preco:'R$ 680.000', badge:'Novo', badgeClass:'badge-novo', img:'img-apt', shape:'shape-tower' },
+    { cidade:'balneario-camboriu', cat:'venda', tipo:'Apartamento', nome:'Residencial Grand Park', bairro:'Centro, Balneário Camboriú', suites:3, area:220, vagas:2, preco:'R$ 1.650.000', badge:'Novo', badgeClass:'badge-novo', img:'img-apt', shape:'shape-tower' },
+    { cidade:'balneario-camboriu', cat:'venda', tipo:'Penthouse', nome:'Torre Beira Mar', bairro:'Beira Mar, Balneário Camboriú', suites:4, area:360, vagas:3, preco:'R$ 3.900.000', badge:'Destaque', badgeClass:'badge-destaque', img:'img-villa', shape:'shape-tower' },
+    { cidade:'balneario-camboriu', cat:'locação', tipo:'Apartamento', nome:'Flat Atlântico', bairro:'Centro, Balneário Camboriú', suites:1, area:55, vagas:1, preco:'R$ 4.500/mês', badge:'Locação', badgeClass:'badge-exclusivo', img:'img-apt', shape:'shape-tower' },
+    { cidade:'florianopolis', cat:'locação', tipo:'Apartamento', nome:'Ocean Blue Tower', bairro:'Agronômica, Florianópolis', suites:2, area:145, vagas:2, preco:'R$ 6.800/mês', badge:'Locação', badgeClass:'badge-exclusivo', img:'img-house', shape:'shape-tower' },
+    { cidade:'florianopolis', cat:'venda', tipo:'Casa', nome:'Mansão Jurerê', bairro:'Jurerê Internacional, Fpolis', suites:5, area:750, vagas:6, preco:'R$ 5.200.000', badge:'Exclusivo', badgeClass:'badge-destaque', img:'img-villa', shape:'shape-house' },
+    { cidade:'florianopolis', cat:'venda', tipo:'Apartamento', nome:'Residencial Campeche', bairro:'Campeche, Florianópolis', suites:3, area:180, vagas:2, preco:'R$ 1.200.000', badge:'Novo', badgeClass:'badge-novo', img:'img-apt', shape:'shape-tower' },
+    { cidade:'bombinhas', cat:'venda', tipo:'Casa de Alto Padrão', nome:'Villa Serena — Portobello', bairro:'Portobello, Bombinhas', suites:4, area:680, vagas:6, preco:'R$ 3.200.000', badge:'Exclusivo', badgeClass:'badge-exclusivo', img:'img-penthouse', shape:'shape-house' },
+    { cidade:'bombinhas', cat:'venda', tipo:'Apartamento', nome:'Residencial Mar Azul', bairro:'Centro, Bombinhas', suites:2, area:110, vagas:1, preco:'R$ 750.000', badge:'Novo', badgeClass:'badge-novo', img:'img-apt', shape:'shape-tower' },
+    { cidade:'porto-belo', cat:'venda', tipo:'Casa', nome:'Residencial Porto Belo', bairro:'Centro, Porto Belo', suites:3, area:290, vagas:3, preco:'R$ 980.000', badge:'Destaque', badgeClass:'badge-destaque', img:'img-house', shape:'shape-house' }
+  ];
+
+  const nomeCidades = {
+    'itapema':'Itapema',
+    'balneario-camboriu':'Balneário Camboriú',
+    'florianopolis':'Florianópolis',
+    'bombinhas':'Bombinhas',
+    'porto-belo':'Porto Belo'
+  };
+
+  function criarCardPainel(im) {
+    return `
+      <div style="position:relative;overflow:hidden;cursor:pointer;background:var(--graphite);"
+           onmouseenter="this.querySelector('.pf').style.opacity='1';this.querySelector('.pf').style.transform='translateY(0)';this.querySelector('.pbg').style.transform='scale(1.07)';"
+           onmouseleave="this.querySelector('.pf').style.opacity='0';this.querySelector('.pf').style.transform='translateY(8px)';this.querySelector('.pbg').style.transform='scale(1)';">
+        <div class="pbg ${im.img}" style="height:280px;width:100%;transition:transform 0.7s ease;position:relative;">
+          <div class="${im.shape} prop-shape" style="position:absolute;bottom:0;right:0;width:55%;height:85%;opacity:0.1;background:var(--gold);"></div>
+        </div>
+        <span class="prop-badge ${im.badgeClass}" style="position:absolute;top:1rem;left:1rem;">${im.badge}</span>
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,0.92) 0%,rgba(10,10,10,0.2) 45%,transparent 70%);display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;">
+          <div style="font-size:0.62rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:0.3rem;">${im.tipo}</div>
+          <div style="font-family:var(--serif);font-size:1.15rem;font-weight:600;color:var(--white);margin-bottom:0.2rem;line-height:1.2;">${im.nome}</div>
+          <div style="font-size:0.75rem;color:rgba(245,240,232,0.55);margin-bottom:0.8rem;">📍 ${im.bairro}</div>
+          <div style="display:flex;gap:1rem;margin-bottom:0.8rem;flex-wrap:wrap;">
+            <span style="font-size:0.7rem;color:rgba(245,240,232,0.6);">🛏 ${im.suites} suítes</span>
+            <span style="font-size:0.7rem;color:rgba(245,240,232,0.6);">📐 ${im.area} m²</span>
+            <span style="font-size:0.7rem;color:rgba(245,240,232,0.6);">🚗 ${im.vagas} vagas</span>
+          </div>
+          <div class="pf" style="display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid rgba(201,168,76,0.2);padding-top:0.8rem;opacity:0;transform:translateY(8px);transition:opacity 0.3s,transform 0.3s;">
+            <div>
+              <div style="font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(245,240,232,0.4);">Valor</div>
+              <div style="font-family:var(--serif);font-size:1.3rem;font-weight:700;color:var(--gold);">${im.preco}</div>
+            </div>
+            <div style="width:36px;height:36px;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;color:var(--gold);">→</div>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function abrirPainelCidade(cidade) {
+    const painel = document.getElementById('painel-cidade');
+    const grid = document.getElementById('painel-grid');
+    const vazio = document.getElementById('painel-vazio');
+    const titulo = document.getElementById('painel-titulo');
+    const eyebrow = document.getElementById('painel-eyebrow');
+
+    const lista = imoveis.filter(im => im.cidade === cidade);
+    const nomeC = nomeCidades[cidade] || cidade;
+
+    eyebrow.textContent = 'Imóveis em ' + nomeC;
+    titulo.innerHTML = 'Imóveis à venda em <em style="font-style:italic;color:var(--gold);">' + nomeC + '</em>';
+
+    if (lista.length === 0) {
+      grid.innerHTML = '';
+      grid.style.display = 'none';
+      vazio.style.display = 'block';
+    } else {
+      grid.style.display = 'grid';
+      vazio.style.display = 'none';
+      grid.innerHTML = lista.map(criarCardPainel).join('');
+    }
+
+    painel.style.display = 'block';
+    painel.style.opacity = '0';
+    painel.style.transition = 'opacity 0.5s ease';
+    requestAnimationFrame(() => { painel.style.opacity = '1'; });
+    setTimeout(() => { painel.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
+  }
+
+  document.querySelectorAll('.bairro-card').forEach(card => {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', () => {
+      const cidade = card.dataset.cidade;
+      if (cidade) abrirPainelCidade(cidade);
+    });
+  });
+
+  document.getElementById('painel-fechar').addEventListener('click', () => {
+    const painel = document.getElementById('painel-cidade');
+    painel.style.opacity = '0';
+    setTimeout(() => { painel.style.display = 'none'; }, 400);
+  });
+
+  document.querySelector('.search-btn').addEventListener('click', () => {
+    const cidade = document.getElementById('select-cidade').value;
+    if (cidade) {
+      abrirPainelCidade(cidade);
+    } else {
+      document.getElementById('imoveis').scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+</script>
+</body>
+</html>
