@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Descubra o Brasil – Turismo Extraordinário</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --verde:   #1A5C3A;
+      --verde-claro: #2D8653;
+      --amarelo: #F5C842;
+      --areia:   #F7EDD8;
+      --azul:    #1B6CA8;
+      --coral:   #E8553A;
+      --escuro:  #111810;
+      --cinza:   #6B7280;
+      --branco:  #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--escuro);
+      color: var(--branco);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 5%;
+      background: rgba(17,24,16,.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      color: var(--amarelo);
+      letter-spacing: .04em;
+    }
+    .logo span { color: var(--verde-claro); }
+    nav ul { list-style: none; display: flex; gap: 2.4rem; }
+    nav ul a {
+      text-decoration: none; color: rgba(255,255,255,.75);
+      font-size: .9rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase;
+      transition: color .25s;
+    }
+    nav ul a:hover { color: var(--amarelo); }
+    .nav-cta {
+      background: var(--amarelo); color: var(--escuro) !important;
+      padding: .55rem 1.3rem; border-radius: 30px; font-weight: 600 !important;
+    }
+    .nav-cta:hover { background: var(--verde-claro); color: #fff !important; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 8rem 5% 5rem;
+      background:
+        linear-gradient(to bottom, rgba(17,24,16,.55) 0%, rgba(17,24,16,.75) 100%),
+        url('https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=1800&q=80') center/cover no-repeat;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-badge {
+      display: inline-block;
+      border: 1px solid var(--amarelo);
+      color: var(--amarelo);
+      font-size: .75rem; font-weight: 600; letter-spacing: .14em;
+      text-transform: uppercase;
+      padding: .4rem 1rem; border-radius: 30px;
+      margin-bottom: 1.8rem;
+      animation: fadeUp .8s ease both;
+    }
+    #hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 7vw, 7.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      max-width: 900px;
+      animation: fadeUp .9s .1s ease both;
+    }
+    #hero h1 em { font-style: italic; color: var(--amarelo); }
+    #hero p {
+      margin-top: 1.5rem;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: rgba(255,255,255,.8);
+      max-width: 560px;
+      line-height: 1.7;
+      animation: fadeUp 1s .2s ease both;
+    }
+    .hero-btns {
+      margin-top: 2.5rem;
+      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+      animation: fadeUp 1s .35s ease both;
+    }
+    .btn-primary {
+      background: var(--amarelo); color: var(--escuro);
+      padding: .9rem 2.2rem; border-radius: 40px;
+      font-weight: 700; font-size: 1rem; text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(245,200,66,.35); }
+    .btn-outline {
+      border: 1.5px solid rgba(255,255,255,.5); color: #fff;
+      padding: .9rem 2.2rem; border-radius: 40px;
+      font-weight: 500; font-size: 1rem; text-decoration: none;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-outline:hover { border-color: var(--amarelo); background: rgba(245,200,66,.08); }
+    .hero-scroll {
+      position: absolute; bottom: 2rem;
+      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+      color: rgba(255,255,255,.5); font-size: .75rem; letter-spacing: .1em;
+      text-transform: uppercase;
+      animation: fadeUp 1s .7s ease both;
+    }
+    .hero-scroll::after {
+      content: '';
+      width: 1.5px; height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,.5), transparent);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+    @keyframes scrollLine { 0%,100%{transform:scaleY(1)} 50%{transform:scaleY(.6)} }
+    .hero-stats {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      display: flex; justify-content: center; gap: 0;
+      background: rgba(0,0,0,.45); backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .hero-stat {
+      flex: 1; max-width: 220px;
+      padding: 1.4rem 1rem;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,.08);
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; color: var(--amarelo);
+    }
+    .hero-stat span { font-size: .75rem; color: rgba(255,255,255,.6); letter-spacing: .05em; }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 7rem 5%; }
+    .section-label {
+      font-size: .7rem; font-weight: 700; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--amarelo);
+      margin-bottom: .9rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700; line-height: 1.18;
+    }
+    .section-title em { font-style: italic; color: var(--verde-claro); }
+    .section-sub {
+      margin-top: 1rem;
+      color: rgba(255,255,255,.6);
+      font-size: 1.05rem; line-height: 1.7;
+      max-width: 560px;
+    }
+    .section-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-end; flex-wrap: wrap; gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ── DESTINOS ── */
+    #destinos { background: #0D1710; }
+    .destinos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 1.2rem;
+    }
+    .destino-card {
+      position: relative; overflow: hidden; border-radius: 18px;
+      cursor: pointer;
+      transition: transform .3s;
+    }
+    .modal-form-group input,
+.modal-form-group select,
+.modal-form-group textarea {
+  width: 100%;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.18);
+  color: #fff;
+  padding: .75rem 1rem;
+  border-radius: 12px;
+  font-size: .95rem;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+}
+
+.modal-form-group input:focus,
+.modal-form-group select:focus,
+.modal-form-group textarea:focus {
+  background: rgba(255,255,255,.12);
+  border-color: var(--amarelo);
+  color: #000000;
+}
+
+.modal-form-group input::selection,
+.modal-form-group textarea::selection {
+  background: var(--amarelo);
+  color: #111;
+}
+
+.modal-form-group input,
+.modal-form-group textarea {
+  caret-color: #000000;
+}
+    .destino-card:hover { transform: scale(1.02); }
+    .destino-card:first-child {
+      grid-column: 1 / 3;
+      grid-row: 1 / 3;
+      min-height: 540px;
+    }
+    .destino-card img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .6s ease;
+    }
+    .destino-card:hover img { transform: scale(1.06); }
+    .destino-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.85) 30%, transparent 70%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 2rem;
+    }
+    .destino-tag {
+      font-size: .68rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--amarelo);
+      background: rgba(245,200,66,.15); border: 1px solid var(--amarelo);
+      display: inline-block; padding: .25rem .7rem; border-radius: 20px;
+      margin-bottom: .7rem; width: fit-content;
+    }
+    .destino-overlay h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; font-weight: 700;
+    }
+    .destino-card:first-child .destino-overlay h3 { font-size: 2.8rem; }
+    .destino-overlay p { color: rgba(255,255,255,.7); font-size: .9rem; margin-top: .4rem; }
+    .destino-arrow {
+      margin-top: 1rem;
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--amarelo); color: var(--escuro);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; font-weight: bold;
+      text-decoration: none;
+      transition: background .2s;
+    }
+    .destino-arrow:hover { background: var(--verde-claro); color: #fff; }
+
+    /* ── EXPERIÊNCIAS ── */
+    #experiencias { background: var(--escuro); }
+    .exp-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+    }
+    .exp-card {
+      background: #1a2218;
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 18px;
+      padding: 2rem 1.6rem;
+      transition: border-color .3s, transform .3s;
+    }
+    .exp-card:hover { border-color: var(--verde-claro); transform: translateY(-4px); }
+    .exp-icon {
+      font-size: 2.8rem; margin-bottom: 1.2rem;
+    }
+    .exp-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem; margin-bottom: .6rem;
+    }
+    .exp-card p { color: rgba(255,255,255,.6); font-size: .9rem; line-height: 1.65; }
+    .exp-card .exp-count {
+      margin-top: 1.2rem;
+      color: var(--amarelo); font-weight: 600; font-size: .88rem;
+    }
+
+    /* ── MAPA / REGIÕES ── */
+    #regioes {
+      background: linear-gradient(135deg, #0D1F0F 0%, #0A1A1F 100%);
+    }
+    .regioes-layout {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .regioes-list { display: flex; flex-direction: column; gap: 1rem; }
+    .regiao-item {
+      display: flex; align-items: center; gap: 1.2rem;
+      padding: 1.4rem 1.6rem;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: background .25s, border-color .25s;
+    }
+    .regiao-item:hover, .regiao-item.active {
+      background: rgba(45,134,83,.12);
+      border-color: var(--verde-claro);
+    }
+    .regiao-color {
+      width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+    }
+    .regiao-item h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; }
+    .regiao-item p { font-size: .82rem; color: rgba(255,255,255,.55); margin-top: .15rem; }
+    .regiao-arrow { margin-left: auto; color: var(--verde-claro); font-size: 1.1rem; opacity: 0; transition: opacity .2s; }
+    .regiao-item:hover .regiao-arrow, .regiao-item.active .regiao-arrow { opacity: 1; }
+    .regioes-visual {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 24px;
+      min-height: 440px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 2rem;
+      position: relative; overflow: hidden;
+    }
+    .brazil-map {
+      font-size: 12rem; opacity: .12; position: absolute;
+      user-select: none; pointer-events: none;
+    }
+    .regioes-info { text-align: center; z-index: 1; }
+    .regioes-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; color: var(--amarelo);
+      margin-bottom: .8rem;
+    }
+    .regioes-info p { color: rgba(255,255,255,.7); line-height: 1.7; }
+    .regioes-info .tag-list {
+      margin-top: 1.2rem; display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center;
+    }
+    .tag {
+      background: rgba(45,134,83,.2); border: 1px solid var(--verde-claro);
+      color: #fff; font-size: .78rem;
+      padding: .3rem .8rem; border-radius: 20px;
+    }
+
+    /* ── GALERIA ── */
+    #galeria { background: #080D09; }
+    .galeria-strip {
+      display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 1rem;
+      scroll-snap-type: x mandatory;
+    }
+    .galeria-strip::-webkit-scrollbar { height: 4px; }
+    .galeria-strip::-webkit-scrollbar-thumb { background: var(--verde-claro); border-radius: 2px; }
+    .galeria-item {
+      flex: 0 0 300px; height: 400px;
+      border-radius: 18px; overflow: hidden;
+      scroll-snap-align: start; position: relative;
+    }
+    .galeria-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s; }
+    .galeria-item:hover img { transform: scale(1.05); }
+    .galeria-item .g-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.8), transparent);
+      padding: 1.5rem 1rem .8rem;
+      font-size: .88rem; font-weight: 500;
+    }
+    .galeria-item:first-child { flex: 0 0 520px; }
+
+    /* ── ROTEIROS ── */
+    #roteiros { background: var(--escuro); }
+    .roteiros-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    }
+    .roteiro-card {
+      background: #161e14;
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 18px; overflow: hidden;
+      transition: transform .3s;
+    }
+    .roteiro-card:hover { transform: translateY(-6px); }
+    .roteiro-img { width: 100%; height: 200px; object-fit: cover; display: block; }
+    .roteiro-body { padding: 1.8rem; }
+    .roteiro-meta {
+      display: flex; gap: 1rem; margin-bottom: 1rem;
+    }
+    .roteiro-meta span {
+      font-size: .75rem; color: rgba(255,255,255,.5);
+      display: flex; align-items: center; gap: .3rem;
+    }
+    .roteiro-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; margin-bottom: .6rem;
+    }
+    .roteiro-body p { color: rgba(255,255,255,.6); font-size: .88rem; line-height: 1.65; }
+    .roteiro-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 1.5rem; padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .roteiro-preco { font-family: 'Playfair Display', serif; font-size: 1.3rem; }
+    .roteiro-preco small { font-family: 'Inter', sans-serif; font-size: .75rem; color: rgba(255,255,255,.5); display: block; }
+    .btn-roteiro {
+      background: var(--verde-claro); color: #fff;
+      padding: .55rem 1.2rem; border-radius: 30px;
+      font-size: .85rem; font-weight: 600; text-decoration: none;
+      border: none; cursor: pointer;
+      transition: background .2s;
+    }
+    .btn-roteiro:hover { background: var(--verde); }
+
+    /* ── SELEÇÃO DE ROTEIRO ── */
+    .roteiro-card {
+      position: relative;
+    }
+    .roteiro-select-badge {
+      display: none;
+      position: absolute; top: 12px; right: 12px;
+      background: var(--amarelo); color: var(--escuro);
+      font-size: .72rem; font-weight: 700; letter-spacing: .08em;
+      padding: .3rem .8rem; border-radius: 20px;
+      text-transform: uppercase;
+    }
+    .roteiro-card.selecionado {
+      border-color: var(--amarelo) !important;
+      box-shadow: 0 0 0 2px var(--amarelo);
+    }
+    .roteiro-card.selecionado .roteiro-select-badge { display: block; }
+    .roteiro-card.selecionado .btn-roteiro {
+      background: var(--amarelo); color: var(--escuro);
+    }
+    .btn-selecionar {
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,.25); color: rgba(255,255,255,.7);
+      padding: .55rem 1.2rem; border-radius: 30px;
+      font-size: .85rem; font-weight: 600;
+      cursor: pointer; transition: all .2s;
+      margin-right: .5rem;
+    }
+    .btn-selecionar:hover { border-color: var(--amarelo); color: var(--amarelo); }
+    .roteiro-card.selecionado .btn-selecionar {
+      background: rgba(245,200,66,.15);
+      border-color: var(--amarelo); color: var(--amarelo);
+    }
+
+    /* ── BARRA FLUTUANTE DE SELEÇÃO ── */
+    #barra-selecionado {
+      position: fixed; bottom: -120px; left: 50%; transform: translateX(-50%);
+      z-index: 998;
+      background: #1a2d1d;
+      border: 1.5px solid var(--amarelo);
+      border-radius: 20px;
+      padding: 1rem 1.8rem;
+      display: flex; align-items: center; gap: 1.5rem;
+      box-shadow: 0 8px 40px rgba(0,0,0,.5);
+      transition: bottom .4s cubic-bezier(.34,1.56,.64,1);
+      white-space: nowrap;
+      max-width: 90vw;
+    }
+    #barra-selecionado.visivel { bottom: 2rem; }
+    #barra-nome { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--amarelo); }
+    #barra-preco { font-size: .88rem; color: rgba(255,255,255,.7); }
+    #barra-btn {
+      background: var(--amarelo); color: var(--escuro);
+      padding: .7rem 1.6rem; border-radius: 30px;
+      font-weight: 700; font-size: .9rem; border: none; cursor: pointer;
+      transition: transform .2s;
+    }
+    #barra-btn:hover { transform: scale(1.04); }
+    #barra-limpar {
+      background: transparent; border: none; color: rgba(255,255,255,.4);
+      font-size: 1.2rem; cursor: pointer; padding: .2rem;
+      transition: color .2s; line-height: 1;
+    }
+    #barra-limpar:hover { color: var(--coral); }
+
+    /* ── MODAL WHATSAPP ── */
+    #modal-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 1100;
+      background: rgba(0,0,0,.75);
+      backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
+      padding: 1rem;
+    }
+    #modal-overlay.aberto { display: flex; }
+    #modal {
+      background: #141d13;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 24px;
+      width: 100%; max-width: 520px;
+      padding: 2.5rem;
+      position: relative;
+      animation: modalIn .35s cubic-bezier(.34,1.56,.64,1) both;
+    }
+    @keyframes modalIn {
+      from { opacity:0; transform: scale(.88) translateY(20px); }
+      to   { opacity:1; transform: scale(1) translateY(0); }
+    }
+    #modal-close {
+      position: absolute; top: 1.2rem; right: 1.4rem;
+      background: rgba(255,255,255,.08); border: none; color: #fff;
+      width: 32px; height: 32px; border-radius: 50%;
+      font-size: 1rem; cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    #modal-close:hover { background: rgba(255,255,255,.18); }
+    .modal-badge {
+      display: inline-block;
+      background: rgba(37,211,102,.15);
+      border: 1px solid #25d166;
+      color: #25d166;
+      font-size: .72rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; padding: .3rem .9rem;
+      border-radius: 20px; margin-bottom: 1rem;
+    }
+    #modal h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem; margin-bottom: .4rem;
+    }
+    #modal-destino-label {
+      font-size: .88rem; color: var(--amarelo); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: .4rem;
+    }
+    .modal-form-group { margin-bottom: 1.1rem; }
+    .modal-form-group label {
+      display: block; font-size: .8rem; font-weight: 600;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: rgba(255,255,255,.6); margin-bottom: .45rem;
+    }
+    .modal-form-group input,
+    .modal-form-group select,
+    .modal-form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      color: #fff; padding: .75rem 1rem;
+      border-radius: 12px; font-size: .95rem;
+      font-family: 'Inter', sans-serif;
+      outline: none; transition: border-color .2s;
+      appearance: none;
+    }
+    .modal-form-group select { cursor: pointer; }
+    .modal-form-group input:focus,
+    .modal-form-group select:focus,
+    .modal-form-group textarea:focus { border-color: var(--verde-claro); }
+    .modal-form-group textarea { resize: vertical; min-height: 80px; }
+    .modal-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+    #btn-whats {
+      width: 100%; margin-top: 1.2rem;
+      background: #25d166; color: #fff;
+      padding: 1rem; border-radius: 14px;
+      font-size: 1rem; font-weight: 700; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: .6rem;
+      transition: background .2s, transform .2s;
+    }
+    #btn-whats:hover { background: #1db954; transform: translateY(-2px); }
+    .modal-disclaimer {
+      text-align: center; font-size: .75rem;
+      color: rgba(255,255,255,.35); margin-top: .8rem;
+    }
+
+    /* ── DEPOIMENTOS ── */
+    #depoimentos {
+      background: linear-gradient(180deg, #0D1710 0%, #0a1218 100%);
+    }
+    .dep-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .dep-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px; padding: 2rem;
+      transition: border-color .3s;
+    }
+    .dep-card:hover { border-color: rgba(245,200,66,.3); }
+    .dep-stars { color: var(--amarelo); font-size: 1rem; margin-bottom: 1rem; }
+    .dep-card p { color: rgba(255,255,255,.75); font-size: .92rem; line-height: 1.7; font-style: italic; }
+    .dep-author {
+      display: flex; align-items: center; gap: .9rem;
+      margin-top: 1.5rem;
+    }
+    .dep-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--verde-claro); display: flex; align-items: center;
+      justify-content: center; font-weight: 700; font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .dep-name { font-weight: 600; font-size: .9rem; }
+    .dep-origin { font-size: .78rem; color: rgba(255,255,255,.5); }
+
+    /* ── NEWSLETTER ── */
+    #newsletter {
+      background: var(--verde);
+      text-align: center;
+      padding: 6rem 5%;
+    }
+    #newsletter .section-label { color: rgba(255,255,255,.7); }
+    #newsletter .section-title { color: #fff; }
+    #newsletter .section-sub { color: rgba(255,255,255,.8); margin: 0 auto; }
+    .newsletter-form {
+      margin-top: 2.5rem;
+      display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap;
+    }
+    .newsletter-form input {
+      background: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.3);
+      color: #fff; padding: .9rem 1.4rem;
+      border-radius: 40px; font-size: .95rem;
+      width: 320px; outline: none;
+      transition: border-color .2s;
+    }
+    .newsletter-form input::placeholder { color: rgba(255,255,255,.5); }
+    .newsletter-form input:focus { border-color: var(--amarelo); }
+    .newsletter-form button {
+      background: var(--amarelo); color: var(--escuro);
+      padding: .9rem 2rem; border-radius: 40px;
+      font-weight: 700; font-size: .95rem; border: none;
+      cursor: pointer; transition: transform .2s;
+    }
+    .newsletter-form button:hover { transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #050A06;
+      padding: 4rem 5% 2rem;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 3rem;
+    }
+    .footer-brand .logo { font-size: 1.8rem; }
+    .footer-brand p { color: rgba(255,255,255,.5); font-size: .88rem; margin-top: 1rem; line-height: 1.7; max-width: 260px; }
+    .footer-col h4 { font-weight: 600; margin-bottom: 1.2rem; font-size: .9rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: .7rem; }
+    .footer-col ul a { color: rgba(255,255,255,.5); text-decoration: none; font-size: .85rem; transition: color .2s; }
+    .footer-col ul a:hover { color: var(--amarelo); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding-top: 1.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      color: rgba(255,255,255,.35); font-size: .8rem;
+    }
+    .footer-socials { display: flex; gap: 1rem; }
+    .footer-socials a {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,.07);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; text-decoration: none;
+      transition: background .2s;
+    }
+    .footer-socials a:hover { background: var(--verde-claro); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .destinos-grid { grid-template-columns: 1fr 1fr; }
+      .destino-card:first-child { grid-column: 1/3; grid-row: auto; min-height: 360px; }
+      .exp-grid { grid-template-columns: repeat(2, 1fr); }
+      .regioes-layout { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      nav ul { display: none; }
+      .destinos-grid { grid-template-columns: 1fr; }
+      .destino-card:first-child { grid-column: auto; grid-row: auto; }
+      .roteiros-grid { grid-template-columns: 1fr; }
+      .dep-grid { grid-template-columns: 1fr; }
+      .exp-grid { grid-template-columns: 1fr; }
+      .hero-stats { flex-wrap: wrap; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVEGAÇÃO ── -->
+<nav>
+  <div class="logo">Brasil<span>Vivo</span></div>
+  <ul>
+    <li><a href="#destinos">Destinos</a></li>
+    <li><a href="#experiencias">Experiências</a></li>
+    <li><a href="#regioes">Regiões</a></li>
+    <li><a href="#roteiros">Roteiros</a></li>
+    <li><a href="#galeria">Galeria</a></li>
+    <li><a href="#newsletter" class="nav-cta">Planejar Viagem</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <span class="hero-badge">🌿 O Maior País da América do Sul</span>
+  <h1>Viva o <em>Extraordinário</em><br>do Brasil</h1>
+  <p>Das praias paradisíacas da Bahia às florestas infinitas do Amazonas, cada destino é uma experiência que transforma.</p>
+  <div class="hero-btns">
+    <a href="#destinos" class="btn-primary">Explorar Destinos →</a>
+    <a href="#roteiros" class="btn-outline">Ver Roteiros</a>
+  </div>
+  <div class="hero-scroll">Role</div>
+  <div class="hero-stats">
+    <div class="hero-stat"><strong>8.5M km²</strong><span>Território</span></div>
+    <div class="hero-stat"><strong>+7.400</strong><span>Km de Litoral</span></div>
+    <div class="hero-stat"><strong>26</strong><span>Estados</span></div>
+    <div class="hero-stat"><strong>+500</strong><span>Destinos Únicos</span></div>
+  </div>
+</section>
+
+<!-- ── DESTINOS ── -->
+<section id="destinos">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Destinos em Destaque</div>
+      <h2 class="section-title">Lugares que <em>encantam</em></h2>
+      <p class="section-sub">Selecione o destino que combina com o seu estilo de viagem.</p>
+    </div>
+    <a href="#roteiros" class="btn-outline" style="white-space:nowrap">Ver todos →</a>
+  </div>
+  <div class="destinos-grid reveal">
+    <div class="destino-card">
+      <img src="https://images.unsplash.com/photo-1598977123118-4e30ba752c8a?w=900&q=80" alt="Rio de Janeiro" loading="lazy">
+      <div class="destino-overlay">
+        <span class="destino-tag">🏖 Sudeste</span>
+        <h3>Rio de Janeiro</h3>
+        <p>Cristo Redentor, Copacabana e o Carnaval mais famoso do mundo.</p>
+        <a href="#newsletter" class="destino-arrow">→</a>
+      </div>
+    </div>
+    <div class="destino-card">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Amazônia" loading="lazy">
+      <div class="destino-overlay">
+        <span class="destino-tag">🌿 Norte</span>
+        <h3>Amazônia</h3>
+        <p>A maior floresta tropical do planeta, rica em biodiversidade.</p>
+        <a href="#newsletter" class="destino-arrow">→</a>
+      </div>
+    </div>
+    <div class="destino-card">
+      <img src="https://images.unsplash.com/photo-1592621385612-4d7129426394?w=700&q=80" alt="Salvador" loading="lazy">
+      <div class="destino-overlay">
+        <span class="destino-tag">🎶 Nordeste</span>
+        <h3>Salvador</h3>
+        <p>Cultura, gastronomia e o Pelourinho que encanta o mundo.</p>
+        <a href="#newsletter" class="destino-arrow">→</a>
+      </div>
+    </div>
+    <div class="destino-card">
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=700&q=80" alt="Foz do Iguaçu" loading="lazy">
+      <div class="destino-overlay">
+        <span class="destino-tag">💧 Sul</span>
+        <h3>Foz do Iguaçu</h3>
+        <p>Uma das 7 maravilhas naturais do mundo.</p>
+        <a href="#newsletter" class="destino-arrow">→</a>
+      </div>
+    </div>
+    <div class="destino-card">
+      <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=700&q=80" alt="Chapada Diamantina" loading="lazy">
+      <div class="destino-overlay">
+        <span class="destino-tag">🏔 Nordeste</span>
+        <h3>Chapada Diamantina</h3>
+        <p>Cachoeiras, grutas e trilhas de tirar o fôlego.</p>
+        <a href="#newsletter" class="destino-arrow">→</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIÊNCIAS ── -->
+<section id="experiencias">
+  <div class="section-header">
+    <div>
+      <div class="section-label">O Que Fazer</div>
+      <h2 class="section-title">Experiências que <em>marcam</em></h2>
+    </div>
+  </div>
+  <div class="exp-grid reveal">
+    <div class="exp-card">
+      <div class="exp-icon">🏄</div>
+      <h3>Surf & Praias</h3>
+      <p>Das ondas de Fernando de Noronha às praias paradisíacas de Trancoso. O Brasil tem o litoral mais diverso do mundo.</p>
+      <div class="exp-count">+120 praias premiadas</div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-icon">🌿</div>
+      <h3>Ecoturismo</h3>
+      <p>Mergulhe no Pantanal, explore a Amazônia ou caminhe pela Chapada dos Veadeiros com guias especializados.</p>
+      <div class="exp-count">+40 parques nacionais</div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-icon">🎶</div>
+      <h3>Cultura & Música</h3>
+      <p>Samba, forró, axé, bossa nova – o Brasil é uma nação onde a música está em cada esquina e festival.</p>
+      <div class="exp-count">+300 festivais por ano</div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-icon">🍽</div>
+      <h3>Gastronomia</h3>
+      <p>Do acarajé baiano à moqueca capixaba. Uma viagem pelo Brasil é também uma jornada pelos sabores únicos.</p>
+      <div class="exp-count">+60 pratos típicos regionais</div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-icon">🤿</div>
+      <h3>Mergulho</h3>
+      <p>Fernando de Noronha, Bonito e Ilha Grande oferecem águas cristalinas e vida marinha extraordinária.</p>
+      <div class="exp-count">+80 pontos de mergulho</div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-icon">🏰</div>
+      <h3>História & Patrimônio</h3>
+      <p>Ouro Preto, Olinda, São Luís – cidades históricas tombadas pela UNESCO com arquitetura colonial deslumbrante.</p>
+      <div class="exp-count">22 sítios UNESCO</div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-icon">🪗</div>
+      <h3>Festas Populares</h3>
+      <p>Carnaval, Festa Junina, Bumba Meu Boi – o povo brasileiro sabe celebrar como nenhum outro no mundo.</p>
+      <div class="exp-count">O Carnaval mais famoso do mundo</div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-icon">🚵</div>
+      <h3>Aventura & Esportes</h3>
+      <p>Voo de asa-delta no Rio, rapel nas Gerais, rafting em Brotas ou tirolesa na Serra Gaucha.</p>
+      <div class="exp-count">+500 operadoras de aventura</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── REGIÕES ── -->
+<section id="regioes">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Regiões do Brasil</div>
+      <h2 class="section-title">5 regiões, <em>infinitas</em> histórias</h2>
+      <p class="section-sub">Cada região brasileira é um mundo à parte com cultura, clima e natureza únicos.</p>
+    </div>
+  </div>
+  <div class="regioes-layout reveal">
+    <div class="regioes-list">
+      <div class="regiao-item active" onclick="setRegiao(this,'Norte','🌿','A maior floresta tropical do mundo cobre esta região, com o Rio Amazonas cortando 3.900 km pelo território. Manaus, Belém e Santarém são portais para uma biodiversidade única no planeta.','Amazônia,Manaus,Teatro Amazonas,Encontro das Águas,Pirarucu,Tucumã')">
+        <div class="regiao-color" style="background:#2D8653"></div>
+        <div><h4>Norte</h4><p>Amazônia · Manaus · Belém</p></div>
+        <span class="regiao-arrow">→</span>
+      </div>
+      <div class="regiao-item" onclick="setRegiao(this,'Nordeste','☀️','17 estados banhados pelo Atlântico, lençóis maranhenses, forró e praias que figuram entre as mais belas do mundo. Salvador, Recife, Fortaleza, Natal e São Luís.','Fortaleza,Salvador,Recife,Lençóis Maranhenses,Noronha,Caruaru')">
+        <div class="regiao-color" style="background:#F5C842"></div>
+        <div><h4>Nordeste</h4><p>Salvador · Fortaleza · Recife</p></div>
+        <span class="regiao-arrow">→</span>
+      </div>
+      <div class="regiao-item" onclick="setRegiao(this,'Centro-Oeste','🦜','O Pantanal, o maior santuário de fauna do continente, e Brasília, capital modernista projetada por Niemeyer. Ecossistema do Cerrado com fauna e flora únicas.','Pantanal,Brasília,Bonito,Goiânia,Chapada dos Veadeiros,Araras')">
+        <div class="regiao-color" style="background:#E8553A"></div>
+        <div><h4>Centro-Oeste</h4><p>Brasília · Pantanal · Bonito</p></div>
+        <span class="regiao-arrow">→</span>
+      </div>
+      <div class="regiao-item" onclick="setRegiao(this,'Sudeste','🏙','O coração econômico e cultural do Brasil. Rio de Janeiro, São Paulo, Minas Gerais e Espírito Santo formam a região mais visitada, com megacidades e natureza exuberante lado a lado.','Rio de Janeiro,São Paulo,Ouro Preto,Paraty,Ilhabela,Campos do Jordão')">
+        <div class="regiao-color" style="background:#1B6CA8"></div>
+        <div><h4>Sudeste</h4><p>Rio · São Paulo · Minas Gerais</p></div>
+        <span class="regiao-arrow">→</span>
+      </div>
+      <div class="regiao-item" onclick="setRegiao(this,'Sul','❄️','De influência europeia, o Sul surpreende com clima frio, vinhedos, Serra Gaúcha, Curitiba moderna e as Cataratas do Iguaçu, uma das 7 maravilhas naturais do mundo.','Iguaçu,Gramado,Florianópolis,Joinville,Serra Gaúcha,Curitiba')">
+        <div class="regiao-color" style="background:#9333EA"></div>
+        <div><h4>Sul</h4><p>Iguaçu · Gramado · Florianópolis</p></div>
+        <span class="regiao-arrow">→</span>
+      </div>
+    </div>
+    <div class="regioes-visual">
+      <div class="brazil-map">🗺</div>
+      <div class="regioes-info" id="regiao-info">
+        <h3 id="r-nome">🌿 Norte</h3>
+        <p id="r-desc">A maior floresta tropical do mundo cobre esta região, com o Rio Amazonas cortando 3.900 km pelo território. Manaus, Belém e Santarém são portais para uma biodiversidade única no planeta.</p>
+        <div class="tag-list" id="r-tags">
+          <span class="tag">Amazônia</span>
+          <span class="tag">Manaus</span>
+          <span class="tag">Teatro Amazonas</span>
+          <span class="tag">Encontro das Águas</span>
+          <span class="tag">Pirarucu</span>
+          <span class="tag">Tucumã</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALERIA ── -->
+<section id="galeria">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Galeria</div>
+      <h2 class="section-title">O Brasil em <em>imagens</em></h2>
+    </div>
+  </div>
+  <div class="galeria-strip reveal">
+    <div class="galeria-item">
+      <img src="https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800&q=80" alt="Rio de Janeiro" loading="lazy">
+      <div class="g-caption">🏙 Rio de Janeiro · Maravilhosa</div>
+    </div>
+    <div class="galeria-item">
+      <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=500&q=80" alt="Nordeste" loading="lazy">
+      <div class="g-caption">☀️ Nordeste · Praias Paradisíacas</div>
+    </div>
+    <div class="galeria-item">
+      <img src="https://images.unsplash.com/photo-1439405326854-014607f694d7?w=500&q=80" alt="Pantanal" loading="lazy">
+      <div class="g-caption">🦜 Pantanal · Natureza Selvagem</div>
+    </div>
+    <div class="galeria-item">
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&q=80" alt="Serra" loading="lazy">
+      <div class="g-caption">🏔 Serra Gaúcha · Montanhas</div>
+    </div>
+    <div class="galeria-item">
+      <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=500&q=80" alt="Cachoeira" loading="lazy">
+      <div class="g-caption">💧 Chapada · Cachoeiras</div>
+    </div>
+    <div class="galeria-item">
+      <img src="https://images.unsplash.com/photo-1514565131-fce0801e6785?w=500&q=80" alt="Carnaval" loading="lazy">
+      <div class="g-caption">🎭 Salvador · Carnaval</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ROTEIROS ── -->
+<section id="roteiros">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Roteiros Sugeridos</div>
+      <h2 class="section-title">Viagens <em>completas</em> e inesquecíveis</h2>
+      <p class="section-sub">Roteiros criados por especialistas locais para você aproveitar ao máximo.</p>
+    </div>
+  </div>
+  <div class="roteiros-grid reveal">
+
+    <div class="roteiro-card" data-nome="Rio de Janeiro Completo" data-preco="R$ 3.500" data-dias="7 dias">
+      <span class="roteiro-select-badge">✓ Selecionado</span>
+      <img class="roteiro-img" src="https://images.unsplash.com/photo-1598977123118-4e30ba752c8a?w=600&q=80" alt="Rio" loading="lazy">
+      <div class="roteiro-body">
+        <div class="roteiro-meta">
+          <span>🗓 7 dias</span><span>👥 2-4 pessoas</span><span>⭐ 4.9</span>
+        </div>
+        <h3>Rio de Janeiro Completo</h3>
+        <p>Cristo Redentor, Pão de Açúcar, praias de Ipanema, Lapa, Santa Teresa e muito samba no estilo carioca.</p>
+        <div class="roteiro-footer">
+          <div class="roteiro-preco"><small>A partir de</small>R$ 3.500</div>
+          <div style="display:flex;gap:.5rem">
+            <button class="btn-selecionar" onclick="selecionarRoteiro(this)">Selecionar</button>
+            <button class="btn-roteiro" onclick="abrirModal(this)">Reservar →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="roteiro-card" data-nome="Rota do Nordeste" data-preco="R$ 5.200" data-dias="10 dias">
+      <span class="roteiro-select-badge">✓ Selecionado</span>
+      <img class="roteiro-img" src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=600&q=80" alt="Nordeste" loading="lazy">
+      <div class="roteiro-body">
+        <div class="roteiro-meta">
+          <span>🗓 10 dias</span><span>👥 2 pessoas</span><span>⭐ 4.8</span>
+        </div>
+        <h3>Rota do Nordeste</h3>
+        <p>Fortaleza, Jericoacoara, Lençóis Maranhenses e São Luís. Um percurso pelas praias mais deslumbrantes do Brasil.</p>
+        <div class="roteiro-footer">
+          <div class="roteiro-preco"><small>A partir de</small>R$ 5.200</div>
+          <div style="display:flex;gap:.5rem">
+            <button class="btn-selecionar" onclick="selecionarRoteiro(this)">Selecionar</button>
+            <button class="btn-roteiro" onclick="abrirModal(this)">Reservar →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="roteiro-card" data-nome="Expedição Amazônica" data-preco="R$ 6.800" data-dias="8 dias">
+      <span class="roteiro-select-badge">✓ Selecionado</span>
+      <img class="roteiro-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Amazônia" loading="lazy">
+      <div class="roteiro-body">
+        <div class="roteiro-meta">
+          <span>🗓 8 dias</span><span>👥 1-6 pessoas</span><span>⭐ 5.0</span>
+        </div>
+        <h3>Expedição Amazônica</h3>
+        <p>Navegue pelo Rio Negro, aviste piranhas, durma na floresta e descubra aldeias indígenas com guias experientes.</p>
+        <div class="roteiro-footer">
+          <div class="roteiro-preco"><small>A partir de</small>R$ 6.800</div>
+          <div style="display:flex;gap:.5rem">
+            <button class="btn-selecionar" onclick="selecionarRoteiro(this)">Selecionar</button>
+            <button class="btn-roteiro" onclick="abrirModal(this)">Reservar →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="roteiro-card" data-nome="Caminhos do Sul" data-preco="R$ 4.400" data-dias="9 dias">
+      <span class="roteiro-select-badge">✓ Selecionado</span>
+      <img class="roteiro-img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Sul" loading="lazy">
+      <div class="roteiro-body">
+        <div class="roteiro-meta">
+          <span>🗓 9 dias</span><span>👥 2-4 pessoas</span><span>⭐ 4.7</span>
+        </div>
+        <h3>Caminhos do Sul</h3>
+        <p>Cataratas do Iguaçu, Gramado, Bento Gonçalves, Florianópolis e o charme europeu do interior gaúcho.</p>
+        <div class="roteiro-footer">
+          <div class="roteiro-preco"><small>A partir de</small>R$ 4.400</div>
+          <div style="display:flex;gap:.5rem">
+            <button class="btn-selecionar" onclick="selecionarRoteiro(this)">Selecionar</button>
+            <button class="btn-roteiro" onclick="abrirModal(this)">Reservar →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="roteiro-card" data-nome="Safari no Pantanal" data-preco="R$ 4.900" data-dias="6 dias">
+      <span class="roteiro-select-badge">✓ Selecionado</span>
+      <img class="roteiro-img" src="https://images.unsplash.com/photo-1439405326854-014607f694d7?w=600&q=80" alt="Pantanal" loading="lazy">
+      <div class="roteiro-body">
+        <div class="roteiro-meta">
+          <span>🗓 6 dias</span><span>👥 2-8 pessoas</span><span>⭐ 4.9</span>
+        </div>
+        <h3>Safari no Pantanal</h3>
+        <p>A maior planície alagada do mundo com onças, ariranhas, capivaras e mais de 650 espécies de pássaros.</p>
+        <div class="roteiro-footer">
+          <div class="roteiro-preco"><small>A partir de</small>R$ 4.900</div>
+          <div style="display:flex;gap:.5rem">
+            <button class="btn-selecionar" onclick="selecionarRoteiro(this)">Selecionar</button>
+            <button class="btn-roteiro" onclick="abrirModal(this)">Reservar →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="roteiro-card" data-nome="Chapada Diamantina" data-preco="R$ 3.200" data-dias="7 dias">
+      <span class="roteiro-select-badge">✓ Selecionado</span>
+      <img class="roteiro-img" src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&q=80" alt="Chapada" loading="lazy">
+      <div class="roteiro-body">
+        <div class="roteiro-meta">
+          <span>🗓 7 dias</span><span>👥 2-6 pessoas</span><span>⭐ 4.8</span>
+        </div>
+        <h3>Chapada Diamantina</h3>
+        <p>Lençóis, Morro do Pai Inácio, Cachoeira da Fumaça, Poço Azul e grutas iluminadas de azul.</p>
+        <div class="roteiro-footer">
+          <div class="roteiro-preco"><small>A partir de</small>R$ 3.200</div>
+          <div style="display:flex;gap:.5rem">
+            <button class="btn-selecionar" onclick="selecionarRoteiro(this)">Selecionar</button>
+            <button class="btn-roteiro" onclick="abrirModal(this)">Reservar →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── BARRA FLUTUANTE ── -->
+<div id="barra-selecionado">
+  <div>
+    <div id="barra-nome">Roteiro selecionado</div>
+    <div id="barra-preco">A partir de —</div>
+  </div>
+  <button id="barra-btn" onclick="abrirModalBarra()">📲 Reservar via WhatsApp</button>
+  <button id="barra-limpar" onclick="limparSelecao()" title="Remover seleção">✕</button>
+</div>
+
+<!-- ── MODAL FORMULÁRIO WHATSAPP ── -->
+<div id="modal-overlay" onclick="fecharModalFora(event)">
+  <div id="modal">
+    <button id="modal-close" onclick="fecharModal()">✕</button>
+    <div class="modal-badge">💬 Envio via WhatsApp</div>
+    <h3>Fale com um consultor</h3>
+    <div id="modal-destino-label">🗺 <span id="modal-destino-nome">Roteiro selecionado</span></div>
+
+    <div class="modal-form-group">
+      <label>Passeio de interesse</label>
+      <select id="f-passeio">
+        <option value="">— Selecione um roteiro —</option>
+        <option>Rio de Janeiro Completo – 7 dias – R$ 3.500</option>
+        <option>Rota do Nordeste – 10 dias – R$ 5.200</option>
+        <option>Expedição Amazônica – 8 dias – R$ 6.800</option>
+        <option>Caminhos do Sul – 9 dias – R$ 4.400</option>
+        <option>Safari no Pantanal – 6 dias – R$ 4.900</option>
+        <option>Chapada Diamantina – 7 dias – R$ 3.200</option>
+      </select>
+    </div>
+
+    <div class="modal-form-row">
+      <div class="modal-form-group">
+        <label>Seu nome *</label>
+        <input type="text" id="f-nome" placeholder="Ex: João Silva" />
+      </div>
+      <div class="modal-form-group">
+        <label>WhatsApp *</label>
+        <input type="tel" id="f-tel" placeholder="(47) 99999-9999" />
+      </div>
+    </div>
+
+    <div class="modal-form-row">
+      <div class="modal-form-group">
+        <label>Data de partida</label>
+        <input type="date" id="f-data" />
+      </div>
+      <div class="modal-form-group">
+        <label>Nº de viajantes</label>
+        <select id="f-pessoas">
+          <option>1 pessoa</option>
+          <option>2 pessoas</option>
+          <option>3 pessoas</option>
+          <option>4 pessoas</option>
+          <option>5 ou mais</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="modal-form-group">
+      <label>Mensagem extra (opcional)</label>
+      <textarea id="f-msg" placeholder="Alguma dúvida, restrição alimentar, solicitação especial..."></textarea>
+    </div>
+
+    <button id="btn-whats" onclick="enviarWhatsApp()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Enviar para WhatsApp
+    </button>
+    <p class="modal-disclaimer">Você será redirecionado para o WhatsApp com a mensagem preenchida automaticamente.</p>
+  </div>
+</div>
+
+<!-- ── DEPOIMENTOS ── -->
+<section id="depoimentos">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Quem Já Viajou</div>
+      <h2 class="section-title">Histórias de quem <em>viveu</em></h2>
+    </div>
+  </div>
+  <div class="dep-grid reveal">
+    <div class="dep-card">
+      <div class="dep-stars">★★★★★</div>
+      <p>"A Amazônia é simplesmente indescritível. Ficar 5 dias dentro da floresta, ouvindo os sons da natureza, foi a experiência mais transformadora da minha vida. Voltarei com certeza."</p>
+      <div class="dep-author">
+        <div class="dep-avatar" style="background:#2D8653">AM</div>
+        <div>
+          <div class="dep-name">Ana Müller</div>
+          <div class="dep-origin">Berlim, Alemanha · Expedição Amazônica</div>
+        </div>
+      </div>
+    </div>
+    <div class="dep-card">
+      <div class="dep-stars">★★★★★</div>
+      <p>"As praias do Nordeste são de outro nível. Jericoacoara ao pôr do sol numa duna com vento na cara... não tem dinheiro que pague essa sensação. Obrigado, Brasil Vivo!"</p>
+      <div class="dep-author">
+        <div class="dep-avatar" style="background:#1B6CA8">CS</div>
+        <div>
+          <div class="dep-name">Carlos Santos</div>
+          <div class="dep-origin">Lisboa, Portugal · Rota do Nordeste</div>
+        </div>
+      </div>
+    </div>
+    <div class="dep-card">
+      <div class="dep-stars">★★★★★</div>
+      <p>"Fui ao Pantanal sem muita expectativa e saí completamente apaixonada. Ver uma onça pintada de apenas 20 metros de distância me fez chorar de emoção. Experiência única!"</p>
+      <div class="dep-author">
+        <div class="dep-avatar" style="background:#E8553A">MF</div>
+        <div>
+          <div class="dep-name">Maria Ferreira</div>
+          <div class="dep-origin">Buenos Aires, Argentina · Safari no Pantanal</div>
+        </div>
+      </div>
+    </div>
+    <div class="dep-card">
+      <div class="dep-stars">★★★★★</div>
+      <p>"O roteiro do Rio foi perfeito. Cada detalhe foi pensado – dos traslados às recomendações de restaurantes. Senti a alma carioca em cada esquina."</p>
+      <div class="dep-author">
+        <div class="dep-avatar" style="background:#9333EA">JT</div>
+        <div>
+          <div class="dep-name">James Thompson</div>
+          <div class="dep-origin">Nova York, EUA · Rio Completo</div>
+        </div>
+      </div>
+    </div>
+    <div class="dep-card">
+      <div class="dep-stars">★★★★★</div>
+      <p>"Gramado no inverno é como um conto de fadas. Fondue, chocolate artesanal, arquitetura alemã – parece que você saiu do Brasil por um momento."</p>
+      <div class="dep-author">
+        <div class="dep-avatar" style="background:#F5C842;color:#111">LO</div>
+        <div>
+          <div class="dep-name">Lúcia Oliveira</div>
+          <div class="dep-origin">São Paulo, Brasil · Caminhos do Sul</div>
+        </div>
+      </div>
+    </div>
+    <div class="dep-card">
+      <div class="dep-stars">★★★★★</div>
+      <p>"A Chapada Diamantina superou todas as minhas expectativas. O Poço Azul é uma das coisas mais bonitas que já vi. Recomendo de olhos fechados para qualquer perfil de viajante."</p>
+      <div class="dep-author">
+        <div class="dep-avatar" style="background:#0891b2">RP</div>
+        <div>
+          <div class="dep-name">Rafael Pinheiro</div>
+          <div class="dep-origin">Curitiba, Brasil · Chapada Diamantina</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── NEWSLETTER ── -->
+<section id="newsletter">
+  <div class="section-label">Comece sua Jornada</div>
+  <h2 class="section-title" style="color:#fff">Receba roteiros e <em style="color:#F5C842">dicas exclusivas</em></h2>
+<div class="newsletter-form">
+  <input type="email" id="newsletter-email" placeholder="seu@email.com" />
+  <button type="button" onclick="enviarNewsletterWhats()">
+    Quero Viajar →
+  </button>
+</div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo">Brasil<span>Vivo</span></div>
+      <p>Conectamos viajantes do mundo inteiro às experiências mais autênticas e transformadoras do Brasil.</p>
+      <div class="footer-socials" style="margin-top:1.5rem">
+        <a href="#">📘</a>
+        <a href="#">📸</a>
+        <a href="#">▶️</a>
+        <a href="#">🐦</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Destinos</h4>
+      <ul>
+        <li><a href="#">Rio de Janeiro</a></li>
+        <li><a href="#">Salvador</a></li>
+        <li><a href="#">Amazônia</a></li>
+        <li><a href="#">Pantanal</a></li>
+        <li><a href="#">Noronha</a></li>
+        <li><a href="#">Gramado</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Experiências</h4>
+      <ul>
+        <li><a href="#">Ecoturismo</a></li>
+        <li><a href="#">Cultura & Festas</a></li>
+        <li><a href="#">Praias</a></li>
+        <li><a href="#">Aventura</a></li>
+        <li><a href="#">Gastronomia</a></li>
+        <li><a href="#">Mergulho</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Informações</h4>
+      <ul>
+        <li><a href="#">Sobre Nós</a></li>
+        <li><a href="#">Como Funciona</a></li>
+        <li><a href="#">Blog de Viagem</a></li>
+        <li><a href="#">Termos de Uso</a></li>
+        <li><a href="#">Política de Privacidade</a></li>
+        <li><a href="#">Contato</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 BrasilVivo. Todos os direitos reservados.</span>
+    <span>Feito com 💚 para o Brasil</span>
+  </div>
+</footer>
+
+<script>
+  // ── WHATSAPP NUMBER (troque pelo número real) ──
+  const WHATS_NUMBER = '5546920017301'; // ex: 55 + DDD + número
+
+  // ── Reveal on scroll ──
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => observer.observe(r));
+
+  // ── Regiões interativas ──
+  function setRegiao(el, nome, emoji, desc, tagsStr) {
+    document.querySelectorAll('.regiao-item').forEach(i => i.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('r-nome').textContent = emoji + ' ' + nome;
+    document.getElementById('r-desc').textContent = desc;
+    document.getElementById('r-tags').innerHTML =
+      tagsStr.split(',').map(t => `<span class="tag">${t.trim()}</span>`).join('');
+  }
+
+  // ── Newsletter ──
+  const nlBtn = document.querySelector('.newsletter-form button');
+  nlBtn && nlBtn.addEventListener('click', () => {
+    const input = document.querySelector('.newsletter-form input');
+    if (input.value.includes('@')) {
+      nlBtn.textContent = '✓ Inscrito!';
+      nlBtn.style.background = '#2D8653'; nlBtn.style.color = '#fff';
+    } else {
+      input.style.borderColor = '#E8553A';
+      input.placeholder = 'Insira um e-mail válido';
+    }
+  });
+
+  // ── SELECIONAR ROTEIRO ──
+  let rotSelecionado = null;
+
+  function selecionarRoteiro(btn) {
+    const card = btn.closest('.roteiro-card');
+    const jaSelecionado = card.classList.contains('selecionado');
+
+    // Remove de todos
+    document.querySelectorAll('.roteiro-card').forEach(c => c.classList.remove('selecionado'));
+    document.querySelectorAll('.btn-selecionar').forEach(b => b.textContent = 'Selecionar');
+
+    if (jaSelecionado) {
+      // Desseleciona
+      rotSelecionado = null;
+      document.getElementById('barra-selecionado').classList.remove('visivel');
+    } else {
+      card.classList.add('selecionado');
+      btn.textContent = '✓ Selecionado';
+      rotSelecionado = {
+        nome: card.dataset.nome,
+        preco: card.dataset.preco,
+        dias: card.dataset.dias
+      };
+      document.getElementById('barra-nome').textContent = '🗺 ' + rotSelecionado.nome;
+      document.getElementById('barra-preco').textContent = rotSelecionado.preco + ' · ' + rotSelecionado.dias;
+      document.getElementById('barra-selecionado').classList.add('visivel');
+    }
+  }
+
+  function limparSelecao() {
+    document.querySelectorAll('.roteiro-card').forEach(c => c.classList.remove('selecionado'));
+    document.querySelectorAll('.btn-selecionar').forEach(b => b.textContent = 'Selecionar');
+    rotSelecionado = null;
+    document.getElementById('barra-selecionado').classList.remove('visivel');
+  }
+
+  // ── ABRIR MODAL ──
+  function abrirModal(btn) {
+    const card = btn.closest('.roteiro-card');
+    const nome = card.dataset.nome;
+    const preco = card.dataset.preco;
+    const dias = card.dataset.dias;
+
+    document.getElementById('modal-destino-nome').textContent = nome + ' — ' + dias + ' — ' + preco;
+
+    // Pre-seleciona no select
+    const select = document.getElementById('f-passeio');
+    for (let i = 0; i < select.options.length; i++) {
+      if (select.options[i].text.includes(nome.substring(0, 10))) {
+        select.selectedIndex = i; break;
+      }
+    }
+
+    document.getElementById('modal-overlay').classList.add('aberto');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function abrirModalBarra() {
+    if (!rotSelecionado) return;
+    document.getElementById('modal-destino-nome').textContent =
+      rotSelecionado.nome + ' — ' + rotSelecionado.dias + ' — ' + rotSelecionado.preco;
+    const select = document.getElementById('f-passeio');
+    for (let i = 0; i < select.options.length; i++) {
+      if (select.options[i].text.includes(rotSelecionado.nome.substring(0, 10))) {
+        select.selectedIndex = i; break;
+      }
+    }
+    document.getElementById('modal-overlay').classList.add('aberto');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function fecharModal() {
+    document.getElementById('modal-overlay').classList.remove('aberto');
+    document.body.style.overflow = '';
+  }
+
+  function fecharModalFora(e) {
+    if (e.target === document.getElementById('modal-overlay')) fecharModal();
+  }
+
+  // ── ENVIAR WHATSAPP ──
+  function enviarWhatsApp() {
+    const nome    = document.getElementById('f-nome').value.trim();
+    const tel     = document.getElementById('f-tel').value.trim();
+    const passeio = document.getElementById('f-passeio').value;
+    const data    = document.getElementById('f-data').value;
+    const pessoas = document.getElementById('f-pessoas').value;
+    const msg     = document.getElementById('f-msg').value.trim();
+
+    if (!nome) { alert('Por favor, informe seu nome.'); return; }
+    if (!tel)  { alert('Por favor, informe seu WhatsApp.'); return; }
+    if (!passeio) { alert('Por favor, selecione um passeio.'); return; }
+
+    const dataFmt = data
+      ? new Date(data + 'T00:00:00').toLocaleDateString('pt-BR')
+      : 'A definir';
+
+    const texto = [
+      '🌿 *Olá, BrasilVivo!*',
+      '',
+      'Tenho interesse em um roteiro e gostaria de mais informações:',
+      '',
+      `🗺 *Roteiro:* ${passeio}`,
+      `👤 *Nome:* ${nome}`,
+      `📱 *WhatsApp:* ${tel}`,
+      `📅 *Data desejada:* ${dataFmt}`,
+      `👥 *Viajantes:* ${pessoas}`,
+      msg ? `\n💬 *Observações:* ${msg}` : '',
+      '',
+      'Aguardo o contato. Obrigado(a)!'
+    ].filter(l => l !== undefined).join('\n');
+
+    const url = `https://wa.me/${WHATS_NUMBER}?text=${encodeURIComponent(texto)}`;
+    window.open(url, '_blank');
+    fecharModal();
+  }
+  function enviarNewsletterWhats() {
+  const email = document.getElementById('newsletter-email').value.trim();
+
+  if (!email || !email.includes('@')) {
+    alert('Insira um e-mail válido.');
+    return;
+  }
+
+  const numero = '5546920017301'; // seu WhatsApp
+
+  const texto =
+`🌿 Olá! Quero receber informações de viagem.
+
+📧 E-mail: ${email}
+💬 Gostaria de saber mais sobre roteiros e promoções.`;
+
+  const url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+
+  window.open(url, '_blank');
+}
+</script>
+</body>
+</html>
